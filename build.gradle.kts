@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+	implementation("junit:junit:4.13.2")
 	implementation("com.h2database:h2")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

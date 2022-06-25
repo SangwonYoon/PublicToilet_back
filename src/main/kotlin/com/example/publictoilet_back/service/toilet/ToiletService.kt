@@ -16,14 +16,19 @@ class ToiletService(val toiletRepository: ToiletRepository) {
         return ToiletResponseDto(entity)
     }
 
-    fun findNearToilet(latitude : Double, longitude : Double, range : Int) : MutableList<Toilet>{
+    fun findNearToilet(latitude : Double, longitude : Double, range : Int) : MutableList<ToiletResponseDto>{
         val toilets =  toiletRepository.findAll()
-        val result = mutableListOf<Toilet>()
+        val result = mutableListOf<ToiletResponseDto>()
         for (toilet in toilets){
-            if(toilet.latitude == null || toilet.longitude == null) continue
-            val distance = getDistance(latitude, longitude, toilet.latitude, toilet.longitude) / 1000
-            if(distance <= range) result.add(toilet)
+            if(toilet.latitude == null || toilet.longitude == null) continue // 화장실의 위치 정보가 온전하지 않으면 continue
+            val distance = (getDistance(latitude, longitude, toilet.latitude, toilet.longitude)).toDouble() / 1000
+            val temp = ToiletResponseDto(toilet, distance)
+            if(distance <= range) result.add(temp) // 현재 위치 기준 지정 범위 내에 화장실이 존재하면 결과 리스트에 화장실을 add
         }
+
+        val comparator = compareBy<ToiletResponseDto> { it.distance }
+        result.sortWith(comparator) // 거리 기준으로 리스트 정렬
+
         return result
     }
 

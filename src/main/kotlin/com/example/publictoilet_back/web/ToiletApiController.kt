@@ -16,7 +16,7 @@ class ToiletApiController(val toiletService: ToiletService) {
     }
 
     @GetMapping("api/v1/toilet/{temp_latitude}/{temp_longitude}/{range}")
-    fun findNearToilet(@PathVariable(value = "temp_latitude") latitude : Double, @PathVariable(value = "temp_longitude") longitude : Double, @PathVariable(value = "range") range : Int) : MutableList<Toilet>{
+    fun findNearToilet(@PathVariable(value = "temp_latitude") latitude : Double, @PathVariable(value = "temp_longitude") longitude : Double, @PathVariable(value = "range") range : Int) : MutableList<ToiletResponseDto>{
         return toiletService.findNearToilet(latitude, longitude, range)
     }
 }

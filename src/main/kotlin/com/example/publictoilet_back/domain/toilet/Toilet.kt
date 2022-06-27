@@ -1,10 +1,7 @@
 package com.example.publictoilet_back.domain.toilet
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import com.example.publictoilet_back.domain.info.Info
+import javax.persistence.*
 
 @Entity
 class Toilet(
@@ -12,7 +9,10 @@ class Toilet(
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id : Long? = null,
         val longitude : Double? = null,
-        val latitude : Double? = null
+        val latitude : Double? = null,
+        @OneToOne(cascade = [CascadeType.ALL], mappedBy = "toilet")
+        @PrimaryKeyJoinColumn
+        val info : Info? = null
 ) {
 
 }

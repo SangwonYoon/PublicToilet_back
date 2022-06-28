@@ -1,4 +1,4 @@
-package com.example.publictoilet_back.web
+package com.example.publictoilet_back.web.controller
 
 import com.example.publictoilet_back.domain.toilet.Toilet
 import com.example.publictoilet_back.service.toilet.ToiletService

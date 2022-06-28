@@ -17,7 +17,7 @@ class ToiletService(val toiletRepository: ToiletRepository) {
     }
 
     fun findNearToilet(latitude : Double, longitude : Double, range : Int) : MutableList<ToiletResponseDto>{
-        val toilets = toiletRepository.findAll()
+        val toilets = toiletRepository.findAll() // TODO findAll()을 조건문 쿼리로 수정 필요
         val result = mutableListOf<ToiletResponseDto>()
         for (toilet in toilets){
             if(toilet.latitude == null || toilet.longitude == null) continue // 화장실의 위치 정보가 온전하지 않으면 continue

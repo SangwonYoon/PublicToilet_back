@@ -14,7 +14,7 @@ import javax.persistence.OneToOne
 @Entity
 class Info (
         @Id
-        val id : Long? = null   ,
+        val id : Long? = null,
         @OneToOne
         @MapsId
         @JoinColumn(name = "toilet_id")

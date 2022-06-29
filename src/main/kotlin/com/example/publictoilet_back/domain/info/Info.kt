@@ -16,14 +16,14 @@ class Info (
         @Id
         val id : Long? = null,
         @OneToOne
-        @MapsId
+        @MapsId // @Id와 매핑해준다.
         @JoinColumn(name = "toilet_id")
-        val toilet : Toilet? = null,
+        val toilet : Toilet = Toilet(),
         val toiletName : String? = null,
         val tel : String? = null,
         val openTime : Date? = null,
         val closeTime : Date? = null,
-        val mw : Boolean? = null,
+        val mw : Boolean? = null, // 남녀 공용 화장실 여부
         val m1 : Int? = null, // 남성용 대변기 수
         val m2 : Int? = null, // 남성용 소변기 수
         val m3 : Int? = null, // 남성용 장애인용 대변기 수

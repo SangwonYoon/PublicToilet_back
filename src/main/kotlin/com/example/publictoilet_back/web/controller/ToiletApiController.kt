@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class ToiletApiController(val toiletService: ToiletService) {
 
-    @GetMapping("/api/v1/toilets/{id}")
+    @GetMapping("/toilets/{id}")
     fun findById(@PathVariable id : Long) : ToiletResponseDto{
         return toiletService.findById(id)
     }
 
-    @GetMapping("api/v1/toilets")
+    @GetMapping("/toilets/search")
     fun findNearToilet(@RequestParam latitude : Double, @RequestParam longitude : Double, @RequestParam range : Int) : MutableList<ToiletResponseDto>{
         return toiletService.findNearToilet(latitude, longitude, range)
     }

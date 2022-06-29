@@ -11,7 +11,7 @@ class Review(
         val id : Long = 0,
         @ManyToOne
         @JoinColumn(name = "toilet_id")
-        val toilet : Toilet = Toilet(),
+        val toilet : Toilet = Toilet(), // Toilet의 PK를 갖는 column
         @NotNull
         val score : Double = 5.0,
         val comment : String? = null

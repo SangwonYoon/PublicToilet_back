@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class InfoApiController(val infoService: InfoService) {
 
-    @GetMapping("Info/{id}")
+    @GetMapping("info/{id}")
     fun findById(@PathVariable id : Long) : InfoResponseDto{
         return infoService.findById(id)
     }

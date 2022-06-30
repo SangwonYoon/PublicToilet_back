@@ -1,5 +1,7 @@
 package com.example.publictoilet_back.domain.toilet
 
+import com.example.publictoilet_back.entity.Toilet
+import com.example.publictoilet_back.repository.ToiletRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test

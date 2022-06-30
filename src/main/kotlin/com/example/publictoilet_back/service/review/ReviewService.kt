@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service
 @Service
 class ReviewService(val reviewRepository: ReviewRepository) {
 
-    fun findByToiletId(id: Long) : MutableList<ReviewResponseDto>{
-        val entities = reviewRepository.findByToilet(id)
+    fun findByToiletId(toilet_id: Long) : MutableList<ReviewResponseDto>{
+        val entities = reviewRepository.findByToiletId(toilet_id)
         // TODO orElseThrow() 사용법
 
         val result = mutableListOf<ReviewResponseDto>()

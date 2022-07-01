@@ -14,6 +14,6 @@ class Statistics(
         @MapsId
         @JoinColumn(name = "toilet_id")
         val toilet : Toilet = Toilet(),
-        val score_avg : Float? = null
+        var score_avg : Float? = null
 ){
 }

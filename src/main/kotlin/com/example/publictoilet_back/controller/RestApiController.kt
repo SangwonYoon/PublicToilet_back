@@ -30,7 +30,6 @@ class RestApiController(val appService: AppService) {
         return appService.findReviewByToiletId(toilet_id)
     }
 
-    //TODO 리뷰 post API
     @PostMapping("/reviews")
     fun save(@RequestBody reviewRequestDto : ReviewRequestDto) : Long?{
         return appService.saveReview(reviewRequestDto)

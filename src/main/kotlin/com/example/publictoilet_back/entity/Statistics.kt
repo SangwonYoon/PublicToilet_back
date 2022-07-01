@@ -9,11 +9,11 @@ import javax.persistence.OneToOne
 @Entity
 class Statistics(
         @Id
-        val id : Long? = 0,
+        val id : Long = 0,
         @OneToOne
         @MapsId
         @JoinColumn(name = "toilet_id")
-        val toilet : Toilet = Toilet(),
+        val toilet : Toilet? = null,
         var score_avg : Float? = null
 ){
 }

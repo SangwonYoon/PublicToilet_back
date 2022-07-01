@@ -11,7 +11,7 @@ class Review(
         var id : Long = 0,
         @ManyToOne
         @JoinColumn(name = "toilet_id")
-        var toilet : Toilet = Toilet(), // Toilet의 PK를 갖는 column
+        var toilet : Toilet? = null, // Toilet의 PK를 갖는 column
         @NotNull
         var score : Float = 5.0F,
         @NotNull

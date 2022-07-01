@@ -8,7 +8,7 @@ import javax.persistence.*
 class Toilet(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id : Long? = null,
+        val id : Long = 0,
         @NotNull
         val longitude : Double = 0.0,
         @NotNull
@@ -27,8 +27,10 @@ class Toilet(
         val w1 : Int? = null, // 여성용 대변기 수
         val w2 : Int? = null, // 여성용 장애인용 대변기 수
         val w3 : Int? = null, // 여성용 어린이용 대변기 수
-        @OneToMany(cascade = [CascadeType.ALL], mappedBy = "toilet")
-        val review : MutableList<Review>? = null
+        @OneToMany(mappedBy = "toilet")
+        val reviewList : MutableList<Review> = mutableListOf(),
+        @OneToOne(mappedBy = "toilet")
+        val statistics: Statistics? = null
 ) {
 
 }

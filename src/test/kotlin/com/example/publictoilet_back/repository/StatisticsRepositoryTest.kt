@@ -30,7 +30,7 @@ class StatisticsRepositoryTest {
     fun 통계_저장_불러오기(){
         //given
         val savedToilet = toiletRepository!!.save(Toilet(id = 1, latitude = 10.23, longitude = 20.234))
-        statisticsRepository!!.save(Statistics(toilet = savedToilet, score_avg = null))
+        statisticsRepository!!.save(Statistics(toilet = savedToilet, score_avg = null)) //TODO
 
         //when
         val statisticsList = (statisticsRepository!!.findAll())
@@ -38,7 +38,7 @@ class StatisticsRepositoryTest {
 
         //then
         assertThat(statisticsList.size).isEqualTo(1)
-        assertThat(statistics.id).isEqualTo(savedToilet.id)
+        assertThat(statistics.id).isEqualTo(savedToilet)
         assertThat(statistics.score_avg).isNull()
     }
 }

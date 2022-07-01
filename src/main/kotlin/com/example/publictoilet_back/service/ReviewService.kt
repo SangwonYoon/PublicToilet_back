@@ -33,7 +33,8 @@ class ReviewService(val reviewRepository: ReviewRepository, val toiletRepository
         val statistics = statisticsRepository.findById(reviewRequestDto.toilet_id).orElseThrow {
             IllegalArgumentException("해당 화장실이 존재하지 않습니다. id=${reviewRequestDto.toilet_id}")
         } // 해당 화장실의 통계 객체
-        statistics.score_avg = (statistics.score_avg!! * cnt + reviewRequestDto.score) / (cnt+1) // 통계 객체의 평점 평균 재계산
+        if(statistics.score_avg == null) statistics.score_avg = reviewRequestDto.score
+        else statistics.score_avg = (statistics.score_avg!! * cnt + reviewRequestDto.score) / (cnt+1) // 통계 객체의 평점 평균 재계산
         statisticsRepository.save(statistics)
 
         val toilet = toiletRepository.findById(reviewRequestDto.toilet_id).orElseThrow {

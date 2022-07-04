@@ -2,6 +2,8 @@ package com.example.publictoilet_back.service
 
 import com.example.publictoilet_back.dto.ToiletLocationDto
 import com.example.publictoilet_back.dto.ToiletInfoDto
+import com.example.publictoilet_back.entity.Statistics
+import com.example.publictoilet_back.entity.Toilet
 import com.example.publictoilet_back.repository.StatisticsRepository
 import com.example.publictoilet_back.repository.ToiletRepository
 import org.springframework.stereotype.Service
@@ -22,9 +24,7 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
             IllegalArgumentException("해당 화장실은 존재하지 않습니다. id=$id")
         }
 
-        val statistics = statisticsRepository.findById(id).orElseThrow{
-            IllegalArgumentException("해당 화장실은 존재하지 않습니다. id=$id")
-        }
+        val statistics = findOrCreateStatistics(entity)
 
         return ToiletInfoDto(statistics, entity)
     }
@@ -35,9 +35,7 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         for (toilet in toilets){
             val distance = (getDistance(latitude, longitude, toilet.latitude, toilet.longitude)).toDouble() / 1000
             if(distance <= range) {
-                val statistics = statisticsRepository.findById(toilet.id!!).orElseThrow {
-                    IllegalArgumentException("해당 화장실은 존재하지 않습니다. id=${toilet.id}")
-                }
+                val statistics = findOrCreateStatistics(toilet)
                 val temp = ToiletLocationDto(toilet, distance, statistics)
                 result.add(temp)
             }
@@ -64,6 +62,17 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         val a = sin(dLat / 2).pow(2.0) + sin(dLon / 2).pow(2.0) * cos(Math.toRadians(lat1)) * cos(Math.toRadians(lat2))
         val c = 2 * asin(sqrt(a))
         return (R * c).toInt()
+    }
+
+    fun findOrCreateStatistics(toilet : Toilet) : Statistics{
+        val findStatistics = statisticsRepository.findById(toilet.id)
+
+        return if(findStatistics.isPresent){
+            findStatistics.get()
+        }else{
+            toilet.createStatistics()
+            toilet.statistics!!
+        }
     }
 
     companion object{

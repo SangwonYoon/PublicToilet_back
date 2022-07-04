@@ -12,7 +12,8 @@ import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
-class StatisticsRepositoryTest {
+class
+StatisticsRepositoryTest {
 
     @Autowired
     val statisticsRepository : StatisticsRepository? = null
@@ -29,7 +30,7 @@ class StatisticsRepositoryTest {
     @Test
     fun 통계_저장_불러오기(){
         //given
-        val savedToilet = toiletRepository!!.save(Toilet(id = 1, latitude = 10.23, longitude = 20.234))
+        val savedToilet = toiletRepository!!.save(Toilet(latitude = 10.23, longitude = 20.234))
         statisticsRepository!!.save(Statistics(toilet = savedToilet, score_avg = null)) //TODO
 
         //when
@@ -38,7 +39,7 @@ class StatisticsRepositoryTest {
 
         //then
         assertThat(statisticsList.size).isEqualTo(1)
-        assertThat(statistics.id).isEqualTo(savedToilet)
+        assertThat(statistics.id).isEqualTo(savedToilet.id)
         assertThat(statistics.score_avg).isNull()
     }
 }

@@ -26,7 +26,7 @@ class RestApiController(val appService: AppService) {
     }
 
     @GetMapping("toilets/{toilet_id}/reviews")
-    fun findByToiletId(@PathVariable toilet_id : Long) : MutableList<ReviewResponseDto>{
+    fun findReviewByToiletId(@PathVariable toilet_id : Long) : MutableList<ReviewResponseDto>{
         return appService.findReviewByToiletId(toilet_id)
     }
 

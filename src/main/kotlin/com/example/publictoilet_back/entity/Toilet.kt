@@ -30,7 +30,10 @@ class Toilet(
         @OneToMany(mappedBy = "toilet")
         val reviewList : MutableList<Review> = mutableListOf(),
         @OneToOne(mappedBy = "toilet")
-        val statistics: Statistics? = null
+        var statistics: Statistics? = null
 ) {
 
+        fun createStatistics(){
+                this.statistics = Statistics(toilet = this)
+        }
 }

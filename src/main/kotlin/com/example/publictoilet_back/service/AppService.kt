@@ -27,7 +27,6 @@ class AppService(val reviewService: ReviewService, val toiletService: ToiletServ
         return reviewService.findByToiletId(toilet_id)
     }
 
-    //TODO review 저장 -> score_avg 갱신
     @Transactional
     fun saveReview(reviewRequestDto : ReviewRequestDto) : Long? {
         return reviewService.save(reviewRequestDto)

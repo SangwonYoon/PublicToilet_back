@@ -76,6 +76,10 @@ class RestApiControllerTest {
         assertThat(responseEntity.body?.toiletName).isEqualTo(savedToiletInfoDto.toiletName)
         assertThat(responseEntity.body?.mw).isEqualTo(savedToiletInfoDto.mw)
         assertThat(responseEntity.body?.w1).isEqualTo(savedToiletInfoDto.w1)
+
+        val statistics = statisticsRepository!!.findById(savedToilet.id).get()
+        assertThat(statistics).isNotEqualTo(null)
+        assertThat(statistics.score_avg).isEqualTo(null)
     }
 
     @Test
@@ -114,12 +118,16 @@ class RestApiControllerTest {
     fun saveReviewTest(){
         //given
         val savedToilet = toiletRepository!!.save(tempToilet)
-        val request = ReviewRequestDto(toilet_id = savedToilet.id, comment = "hello", score = 5.0F)
+        val request1 = ReviewRequestDto(toilet_id = savedToilet.id, comment = "hello", score = 5.0F)
+        val request2 = ReviewRequestDto(toilet_id = savedToilet.id, comment = "hello", score = 4.0F)
+        val request3 = ReviewRequestDto(toilet_id = savedToilet.id, comment = "hello", score = 3.0F)
 
         val url = "http://localhost:$port/reviews"
 
         //when
-        val responseEntity = restTemplate!!.postForEntity(url, request, Long::class.java)
+        val responseEntity = restTemplate!!.postForEntity(url, request1, Long::class.java)
+        restTemplate!!.postForEntity(url, request2, Long::class.java)
+        restTemplate!!.postForEntity(url, request3, Long::class.java)
 
         //then
         assertThat(responseEntity.statusCode).isEqualTo(HttpStatus.OK)
@@ -129,6 +137,9 @@ class RestApiControllerTest {
         assertThat(reviews[0].toilet!!.id).isEqualTo(savedToilet.id)
         assertThat(reviews[0].comment).isEqualTo("hello")
         assertThat(reviews[0].score).isEqualTo(5.0F)
+
+        val statistics = statisticsRepository!!.findById(savedToilet.id).get()
+        assertThat(statistics.score_avg).isEqualTo(4.0F)
     }
 
     @Test

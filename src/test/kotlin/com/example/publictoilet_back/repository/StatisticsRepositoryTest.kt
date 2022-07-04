@@ -21,6 +21,8 @@ StatisticsRepositoryTest {
     @Autowired
     val toiletRepository : ToiletRepository? = null
 
+    private val tempToilet = Toilet(latitude = 10.23, longitude = 20.234)
+
     @After
     fun clean_up(){
         toiletRepository!!.deleteAll()
@@ -30,8 +32,10 @@ StatisticsRepositoryTest {
     @Test
     fun 통계_저장_불러오기(){
         //given
-        val savedToilet = toiletRepository!!.save(Toilet(latitude = 10.23, longitude = 20.234))
-        statisticsRepository!!.save(Statistics(toilet = savedToilet, score_avg = null)) //TODO
+        val savedToilet = toiletRepository!!.save(tempToilet)
+        //statisticsRepository!!.save(Statistics(toilet = savedToilet, score_avg = null)) //TODO
+        savedToilet.createStatistics()
+        statisticsRepository!!.save(savedToilet.statistics!!)
 
         //when
         val statisticsList = (statisticsRepository!!.findAll())

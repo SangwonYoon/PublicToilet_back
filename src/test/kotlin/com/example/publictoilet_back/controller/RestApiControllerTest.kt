@@ -1,7 +1,10 @@
 package com.example.publictoilet_back.controller
 
+import com.example.publictoilet_back.dto.ReviewRequestDto
+import com.example.publictoilet_back.dto.ReviewResponseDto
 import com.example.publictoilet_back.dto.ToiletInfoDto
 import com.example.publictoilet_back.dto.ToiletLocationDto
+import com.example.publictoilet_back.entity.Review
 import com.example.publictoilet_back.entity.Statistics
 import com.example.publictoilet_back.entity.Toilet
 import com.example.publictoilet_back.repository.ReviewRepository
@@ -40,21 +43,24 @@ class RestApiControllerTest {
     @Autowired
     val statisticsRepository : StatisticsRepository? = null
 
-    private inline fun <reified T: Any> typeRef(): ParameterizedTypeReference<T> = object: ParameterizedTypeReference<T>(){}
+    private val tempToilet = Toilet(longitude = 10.34, latitude = 30.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, closeTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9)
+
+    //private inline fun <reified T: Any> typeRef(): ParameterizedTypeReference<T> = object: ParameterizedTypeReference<T>(){}
 
     @After
     @Throws(Exception::class)
     fun tearDown(){
-        toiletRepository!!.deleteAll()
         reviewRepository!!.deleteAll()
         statisticsRepository!!.deleteAll()
+        toiletRepository!!.deleteAll()
     }
 
     @Test
     @Throws(Exception::class)
     fun findInfoTest(){
         //given
-        val savedToilet = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 30.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, closeTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
+        val savedToilet = toiletRepository!!.save(tempToilet)
+        //TODO Statistics 생성 후 평점 평균 잘 나오는지 테스트
         //statisticsRepository!!.save(Statistics(toilet = savedToilet, score_avg = null))
 
         val url = "http://localhost:$port/toilets/${savedToilet.id}/info"
@@ -102,5 +108,49 @@ class RestApiControllerTest {
         assertThat(responseEntity.body!![2].latitude).isEqualTo(toilet3.latitude)
         assertThat(responseEntity.body!![3].latitude).isEqualTo(toilet4.latitude)
         assertThat(responseEntity.body!![4].latitude).isEqualTo(toilet5.latitude)
+    }
+
+    @Test
+    fun saveReviewTest(){
+        //given
+        val savedToilet = toiletRepository!!.save(tempToilet)
+        val request = ReviewRequestDto(toilet_id = savedToilet.id, comment = "hello", score = 5.0F)
+
+        val url = "http://localhost:$port/reviews"
+
+        //when
+        val responseEntity = restTemplate!!.postForEntity(url, request, Long::class.java)
+
+        //then
+        assertThat(responseEntity.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(responseEntity.body!!).isGreaterThan(0L)
+
+        val reviews = reviewRepository!!.findAll()
+        assertThat(reviews[0].toilet!!.id).isEqualTo(savedToilet.id)
+        assertThat(reviews[0].comment).isEqualTo("hello")
+        assertThat(reviews[0].score).isEqualTo(5.0F)
+    }
+
+    @Test
+    fun findReviewsByToiletIdTest(){
+        //given
+        val savedToilet = toiletRepository!!.save(tempToilet)
+        reviewRepository!!.save(Review(toilet = savedToilet, comment = "test1", score = 1.0F))
+        reviewRepository!!.save(Review(toilet = savedToilet, comment = "test2", score = 2.0F))
+        reviewRepository!!.save(Review(toilet = savedToilet, comment = "test3", score = 3.0F))
+
+        val url = "http://localhost:$port/toilets/${savedToilet.id}/reviews"
+
+        //when
+        val responseEntity = restTemplate!!.getForEntity(url, Array<ReviewResponseDto>::class.java)
+
+        //then
+        assertThat(responseEntity.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(responseEntity.body!![0].comment).isEqualTo("test1")
+        assertThat(responseEntity.body!![0].score).isEqualTo(1.0F)
+        assertThat(responseEntity.body!![1].comment).isEqualTo("test2")
+        assertThat(responseEntity.body!![1].score).isEqualTo(2.0F)
+        assertThat(responseEntity.body!![2].comment).isEqualTo("test3")
+        assertThat(responseEntity.body!![2].score).isEqualTo(3.0F)
     }
 }

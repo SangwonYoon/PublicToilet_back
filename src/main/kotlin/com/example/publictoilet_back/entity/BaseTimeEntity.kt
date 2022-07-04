@@ -9,5 +9,5 @@ import javax.persistence.MappedSuperclass
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
-abstract class BaseTimeEntity(@CreatedDate val createdDate : LocalDateTime? = null, @LastModifiedDate val modifiedDate : LocalDateTime? = null) {
+abstract class BaseTimeEntity(@CreatedDate var createdDate : LocalDateTime = LocalDateTime.MIN, @LastModifiedDate var modifiedDate : LocalDateTime = LocalDateTime.MIN) {
 }

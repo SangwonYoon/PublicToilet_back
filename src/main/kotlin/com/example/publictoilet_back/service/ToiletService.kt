@@ -71,7 +71,7 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
             findStatistics.get()
         }else{
             toilet.createStatistics()
-            toilet.statistics!!
+            statisticsRepository.save(toilet.statistics!!)
         }
     }
 

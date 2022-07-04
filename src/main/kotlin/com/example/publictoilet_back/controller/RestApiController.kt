@@ -26,12 +26,12 @@ class RestApiController(val appService: AppService) {
     }
 
     @GetMapping("toilets/{toilet_id}/reviews")
-    fun findReviewByToiletId(@PathVariable toilet_id : Long) : MutableList<ReviewResponseDto>{
+    fun findReviewsByToiletId(@PathVariable toilet_id : Long) : MutableList<ReviewResponseDto>{
         return appService.findReviewByToiletId(toilet_id)
     }
 
     @PostMapping("/reviews")
-    fun save(@RequestBody reviewRequestDto : ReviewRequestDto) : Long?{
+    fun saveReview(@RequestBody reviewRequestDto : ReviewRequestDto) : Long?{
         return appService.saveReview(reviewRequestDto)
     }
 

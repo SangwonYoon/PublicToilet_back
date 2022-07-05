@@ -31,4 +31,9 @@ class AppService(val reviewService: ReviewService, val toiletService: ToiletServ
     fun saveReview(reviewRequestDto : ReviewRequestDto) : Long? {
         return reviewService.save(reviewRequestDto)
     }
+
+    @Transactional
+    fun updateToiletInfo(id : Long, toiletInfoDto: ToiletInfoDto) : Long?{
+        return toiletService.updateToiletInfo(id, toiletInfoDto)
+    }
 }

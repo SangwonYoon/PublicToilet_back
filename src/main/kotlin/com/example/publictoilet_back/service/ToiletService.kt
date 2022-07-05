@@ -7,6 +7,7 @@ import com.example.publictoilet_back.entity.Toilet
 import com.example.publictoilet_back.repository.StatisticsRepository
 import com.example.publictoilet_back.repository.ToiletRepository
 import org.springframework.stereotype.Service
+import javax.transaction.Transactional
 import kotlin.math.*
 
 @Service
@@ -45,6 +46,15 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         result.sortWith(comparator) // 거리 기준으로 리스트 정렬
 
         return result
+    }
+
+    @Transactional
+    fun updateToiletInfo(id : Long, toiletInfoDto: ToiletInfoDto) : Long?{
+        val toilet = toiletRepository.findById(id).orElseThrow {
+            IllegalArgumentException("해당 화장실은 존재하지 않습니다. id=$id")
+        }
+        toilet.update(toiletInfoDto)
+        return id
     }
 
     /**

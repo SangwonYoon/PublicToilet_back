@@ -110,6 +110,7 @@ class RestApiControllerTest {
         assertThat(responseEntity.body!![2].latitude).isEqualTo(toilet3.latitude)
         assertThat(responseEntity.body!![3].latitude).isEqualTo(toilet4.latitude)
         assertThat(responseEntity.body!![4].latitude).isEqualTo(toilet5.latitude)
+        assertThat(responseEntity.body).hasSize(5)
     }
 
     @Test

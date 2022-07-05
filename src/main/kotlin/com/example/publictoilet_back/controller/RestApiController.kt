@@ -35,4 +35,9 @@ class RestApiController(val appService: AppService) {
         return appService.saveReview(reviewRequestDto)
     }
 
+    @PutMapping("/toilets/{id}")
+    fun updateToiletInfo(@PathVariable id : Long, @RequestBody toiletInfoDto : ToiletInfoDto) : Long?{
+        return appService.updateToiletInfo(id, toiletInfoDto)
+    }
+
 }

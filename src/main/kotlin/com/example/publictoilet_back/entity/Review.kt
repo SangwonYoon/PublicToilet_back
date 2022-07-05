@@ -1,6 +1,6 @@
-package com.example.publictoilet_back.domain.review
+package com.example.publictoilet_back.entity
 
-import com.example.publictoilet_back.domain.toilet.Toilet
+import com.example.publictoilet_back.entity.Toilet
 import org.jetbrains.annotations.NotNull
 import javax.persistence.*
 
@@ -8,12 +8,13 @@ import javax.persistence.*
 class Review(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id : Long = 0,
+        var id : Long = 0,
         @ManyToOne
         @JoinColumn(name = "toilet_id")
-        val toilet : Toilet = Toilet(), // Toilet의 PK를 갖는 column
+        var toilet : Toilet? = null, // Toilet의 PK를 갖는 column
         @NotNull
-        val score : Double = 5.0,
+        var score : Float = 5.0F,
+        @NotNull
         val comment : String? = null
-) {
+) : BaseTimeEntity() {
 }

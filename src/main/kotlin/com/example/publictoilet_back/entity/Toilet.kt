@@ -9,9 +9,7 @@ class Toilet(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id : Long = 0,
-        @NotNull
         val longitude : Double = 0.0,
-        @NotNull
         val latitude : Double = 0.0,
         val toiletName : String? = null,
         val tel : String? = null,
@@ -30,10 +28,6 @@ class Toilet(
         @OneToMany(mappedBy = "toilet")
         val reviewList : MutableList<Review> = mutableListOf(),
         @OneToOne(mappedBy = "toilet")
-        var statistics: Statistics? = null
+        val statistics : Statistics? = null
 ) {
-
-        fun createStatistics(){
-                this.statistics = Statistics(toilet = this)
-        }
 }

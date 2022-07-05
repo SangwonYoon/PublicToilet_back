@@ -25,25 +25,26 @@ StatisticsRepositoryTest {
 
     @After
     fun clean_up(){
-        toiletRepository!!.deleteAll()
         statisticsRepository!!.deleteAll()
+        toiletRepository!!.deleteAll()
     }
 
     @Test
     fun 통계_저장_불러오기(){
         //given
         val savedToilet = toiletRepository!!.save(tempToilet)
-        //statisticsRepository!!.save(Statistics(toilet = savedToilet, score_avg = null)) //TODO
-        savedToilet.createStatistics()
-        statisticsRepository!!.save(savedToilet.statistics!!)
+        statisticsRepository!!.save(Statistics(toilet = savedToilet))
 
         //when
         val statisticsList = (statisticsRepository!!.findAll())
         val statistics = statisticsList[0]
 
+        val toilet = toiletRepository!!.findAll()[0]
+
         //then
+        assertThat(toilet.latitude).isEqualTo(10.23)
         assertThat(statisticsList.size).isEqualTo(1)
-        assertThat(statistics.id).isEqualTo(savedToilet.id)
+        assertThat(statistics.toilet!!.id).isEqualTo(savedToilet.id)
         assertThat(statistics.score_avg).isNull()
     }
 }

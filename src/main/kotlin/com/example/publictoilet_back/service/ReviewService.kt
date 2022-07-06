@@ -44,7 +44,7 @@ class ReviewService(val reviewRepository: ReviewRepository, val toiletRepository
     }
 
     fun findOrCreateStatistics(toilet : Toilet) : Statistics {
-        val findStatistics = statisticsRepository.findById(toilet.id)
+        val findStatistics = statisticsRepository.findByToiletId(toilet.id)
 
         return if(findStatistics.isPresent){
             findStatistics.get()

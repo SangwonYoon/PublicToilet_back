@@ -58,8 +58,7 @@ class RestApiControllerTest {
     fun findInfoTest(){
         //given
         val savedToilet = toiletRepository!!.save(tempToilet)
-        //TODO Statistics 생성 후 평점 평균 잘 나오는지 테스트
-        //statisticsRepository!!.save(Statistics(toilet = savedToilet, score_avg = null))
+        statisticsRepository!!.save(Statistics(toilet = savedToilet, score_avg = null))
 
         val url = "http://localhost:$port/toilets/${savedToilet.id}/info"
 
@@ -75,7 +74,7 @@ class RestApiControllerTest {
         assertThat(responseEntity.body?.mw).isEqualTo(savedToiletInfoDto.mw)
         assertThat(responseEntity.body?.w1).isEqualTo(savedToiletInfoDto.w1)
 
-        val statistics = statisticsRepository!!.findById(savedToilet.id).get()
+        val statistics = statisticsRepository!!.findByToiletId(savedToilet.id).get()
         assertThat(statistics).isNotEqualTo(null)
         assertThat(statistics.score_avg).isEqualTo(null)
     }
@@ -117,6 +116,7 @@ class RestApiControllerTest {
     fun saveReviewTest(){
         //given
         val savedToilet = toiletRepository!!.save(tempToilet)
+        statisticsRepository!!.save(Statistics(toilet = savedToilet))
         val request1 = ReviewRequestDto(toilet_id = savedToilet.id, comment = "hello", score = 5.0F)
         val request2 = ReviewRequestDto(toilet_id = savedToilet.id, comment = "hello", score = 4.0F)
         val request3 = ReviewRequestDto(toilet_id = savedToilet.id, comment = "hello", score = 3.0F)
@@ -137,7 +137,7 @@ class RestApiControllerTest {
         assertThat(reviews[0].comment).isEqualTo("hello")
         assertThat(reviews[0].score).isEqualTo(5.0F)
 
-        val statistics = statisticsRepository!!.findById(savedToilet.id).get()
+        val statistics = statisticsRepository!!.findByToiletId(savedToilet.id).get()
         assertThat(statistics.score_avg).isEqualTo(4.0F)
     }
 

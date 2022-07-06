@@ -2,6 +2,7 @@ package com.example.publictoilet_back.service
 
 import com.example.publictoilet_back.dto.ToiletLocationDto
 import com.example.publictoilet_back.dto.ToiletInfoDto
+import com.example.publictoilet_back.dto.ToiletSaveDto
 import com.example.publictoilet_back.dto.ToiletUpdateDto
 import com.example.publictoilet_back.entity.Statistics
 import com.example.publictoilet_back.entity.Toilet
@@ -13,6 +14,13 @@ import kotlin.math.*
 
 @Service
 class ToiletService(val toiletRepository: ToiletRepository, val statisticsRepository: StatisticsRepository) {
+
+    fun saveToilet(toiletSaveDto: ToiletSaveDto) : Long?{
+        val savedToilet = toiletRepository.save(toiletSaveDto.toEntity())
+        statisticsRepository.save(Statistics(toilet = savedToilet))
+        return savedToilet.id
+    }
+
     fun findById(id : Long) : ToiletLocationDto {
         val entity = toiletRepository.findById(id).orElseThrow{
             java.lang.IllegalArgumentException("해당 화장실은 존재하지 않습니다. id=$id")

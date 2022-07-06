@@ -3,6 +3,7 @@ package com.example.publictoilet_back.entity
 import com.example.publictoilet_back.dto.ToiletInfoDto
 import com.example.publictoilet_back.dto.ToiletUpdateDto
 import org.jetbrains.annotations.NotNull
+import java.time.LocalTime
 import java.util.*
 import javax.persistence.*
 
@@ -15,8 +16,8 @@ class Toilet(
         val latitude : Double = 0.0,
         var toiletName : String? = null,
         var tel : String? = null,
-        var openTime : Date? = null,
-        var closeTime : Date? = null,
+        var openTime : LocalTime? = null,
+        var closeTime : LocalTime? = null,
         var mw : Boolean? = null, // 남녀 공용 화장실 여부
         var m1 : Int? = null, // 남성용 대변기 수
         var m2 : Int? = null, // 남성용 소변기 수

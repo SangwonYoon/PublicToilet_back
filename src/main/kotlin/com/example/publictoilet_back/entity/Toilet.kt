@@ -1,6 +1,7 @@
 package com.example.publictoilet_back.entity
 
 import com.example.publictoilet_back.dto.ToiletInfoDto
+import com.example.publictoilet_back.dto.ToiletUpdateDto
 import org.jetbrains.annotations.NotNull
 import java.util.*
 import javax.persistence.*
@@ -31,20 +32,20 @@ class Toilet(
         @OneToOne(mappedBy = "toilet")
         val statistics : Statistics? = null
 ) {
-        fun update(toiletInfoDto: ToiletInfoDto){
-                this.toiletName = toiletInfoDto.toiletName
-                this.tel = toiletInfoDto.tel
-                this.openTime = toiletInfoDto.openTime
-                this.closeTime = toiletInfoDto.closeTime
-                this.mw = toiletInfoDto.mw
-                this.m1 = toiletInfoDto.m1
-                this.m2 = toiletInfoDto.m2
-                this.m3 = toiletInfoDto.m3
-                this.m4 = toiletInfoDto.m4
-                this.m5 = toiletInfoDto.m5
-                this.m6 = toiletInfoDto.m6
-                this.w1 = toiletInfoDto.w1
-                this.w2 = toiletInfoDto.w2
-                this.w3 = toiletInfoDto.w3
+        fun update(toiletUpdateDto: ToiletUpdateDto){
+                this.toiletName = toiletUpdateDto.toiletName
+                this.tel = toiletUpdateDto.tel
+                this.openTime = toiletUpdateDto.openTime
+                this.closeTime = toiletUpdateDto.closeTime
+                this.mw = toiletUpdateDto.mw
+                this.m1 = toiletUpdateDto.m1
+                this.m2 = toiletUpdateDto.m2
+                this.m3 = toiletUpdateDto.m3
+                this.m4 = toiletUpdateDto.m4
+                this.m5 = toiletUpdateDto.m5
+                this.m6 = toiletUpdateDto.m6
+                this.w1 = toiletUpdateDto.w1
+                this.w2 = toiletUpdateDto.w2
+                this.w3 = toiletUpdateDto.w3
         }
 }

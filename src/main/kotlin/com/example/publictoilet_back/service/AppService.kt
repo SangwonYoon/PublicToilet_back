@@ -1,9 +1,6 @@
 package com.example.publictoilet_back.service
 
-import com.example.publictoilet_back.dto.ReviewRequestDto
-import com.example.publictoilet_back.dto.ReviewResponseDto
-import com.example.publictoilet_back.dto.ToiletLocationDto
-import com.example.publictoilet_back.dto.ToiletInfoDto
+import com.example.publictoilet_back.dto.*
 import com.example.publictoilet_back.repository.ReviewRepository
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
@@ -33,7 +30,7 @@ class AppService(val reviewService: ReviewService, val toiletService: ToiletServ
     }
 
     @Transactional
-    fun updateToiletInfo(id : Long, toiletInfoDto: ToiletInfoDto) : Long?{
-        return toiletService.updateToiletInfo(id, toiletInfoDto)
+    fun updateToiletInfo(id : Long, toiletUpdateDto: ToiletUpdateDto) : Long?{
+        return toiletService.updateToiletInfo(id, toiletUpdateDto)
     }
 }

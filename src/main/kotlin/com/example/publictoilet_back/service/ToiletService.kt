@@ -2,6 +2,7 @@ package com.example.publictoilet_back.service
 
 import com.example.publictoilet_back.dto.ToiletLocationDto
 import com.example.publictoilet_back.dto.ToiletInfoDto
+import com.example.publictoilet_back.dto.ToiletUpdateDto
 import com.example.publictoilet_back.entity.Statistics
 import com.example.publictoilet_back.entity.Toilet
 import com.example.publictoilet_back.repository.StatisticsRepository
@@ -49,11 +50,11 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
     }
 
     @Transactional
-    fun updateToiletInfo(id : Long, toiletInfoDto: ToiletInfoDto) : Long?{
+    fun updateToiletInfo(id : Long, toiletUpdateDto: ToiletUpdateDto) : Long?{
         val toilet = toiletRepository.findById(id).orElseThrow {
             IllegalArgumentException("해당 화장실은 존재하지 않습니다. id=$id")
         }
-        toilet.update(toiletInfoDto)
+        toilet.update(toiletUpdateDto)
         return id
     }
 

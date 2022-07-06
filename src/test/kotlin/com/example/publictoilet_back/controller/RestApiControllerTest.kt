@@ -1,9 +1,6 @@
 package com.example.publictoilet_back.controller
 
-import com.example.publictoilet_back.dto.ReviewRequestDto
-import com.example.publictoilet_back.dto.ReviewResponseDto
-import com.example.publictoilet_back.dto.ToiletInfoDto
-import com.example.publictoilet_back.dto.ToiletLocationDto
+import com.example.publictoilet_back.dto.*
 import com.example.publictoilet_back.entity.Review
 import com.example.publictoilet_back.entity.Statistics
 import com.example.publictoilet_back.entity.Toilet
@@ -19,10 +16,12 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.core.ParameterizedTypeReference
+import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.util.LinkedMultiValueMap
+import java.time.LocalTime
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -43,7 +42,7 @@ class RestApiControllerTest {
     @Autowired
     val statisticsRepository : StatisticsRepository? = null
 
-    private val tempToilet = Toilet(longitude = 10.34, latitude = 30.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, closeTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9)
+    private val tempToilet = Toilet(longitude = 10.34, latitude = 30.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = LocalTime.of(7, 30, 0), closeTime = LocalTime.of(22,40,0), mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9)
 
     @After
     @Throws(Exception::class)
@@ -51,6 +50,30 @@ class RestApiControllerTest {
         reviewRepository!!.deleteAll()
         statisticsRepository!!.deleteAll()
         toiletRepository!!.deleteAll()
+    }
+
+    @Test
+    fun saveToiletTest(){
+        //given
+        val request = ToiletSaveDto(longitude = 10.34, latitude = 40.54, toiletName = "정릉 화장실", tel = "02-547-2323", openTime = LocalTime.of(5, 30, 0), closeTime = LocalTime.of(22,40,0), mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9)
+
+        val url = "http://localhost:$port/toilets"
+
+        //when
+        val responseEntity = restTemplate!!.postForEntity(url, request, Long::class.java)
+
+        //then
+        assertThat(responseEntity.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(responseEntity.body).isGreaterThan(0L)
+
+        val savedToilet = toiletRepository!!.findById(responseEntity.body!!).get()
+        assertThat(savedToilet.latitude).isEqualTo(40.54)
+        assertThat(savedToilet.toiletName).isEqualTo("정릉 화장실")
+        assertThat(savedToilet.openTime).isEqualTo(LocalTime.of(5, 30, 0))
+
+        val statistics = statisticsRepository!!.findByToiletId(responseEntity.body!!).get()
+        assertThat(statistics).isNotNull
+        assertThat(statistics.score_avg).isNull()
     }
 
     @Test
@@ -162,5 +185,35 @@ class RestApiControllerTest {
         assertThat(responseEntity.body!![1].score).isEqualTo(2.0F)
         assertThat(responseEntity.body!![2].comment).isEqualTo("test3")
         assertThat(responseEntity.body!![2].score).isEqualTo(3.0F)
+    }
+
+    @Test
+    fun updateToiletInfoTest(){
+        //given
+        val savedToilet = toiletRepository!!.save(tempToilet)
+        val request = ToiletUpdateDto(toiletName = "길음 화장실", tel = "02-266-8323", openTime = LocalTime.of(6,0,0), closeTime = LocalTime.of(22,10,0), mw = true, m1 = 10, m2 = 9, m3 = 8, m4 = 7, m5 = 6, m6 = 5, w1 = 4, w2 = 3, w3 = 2)
+
+        val url = "http://localhost:$port/toilets/${savedToilet.id}"
+
+        //when
+        restTemplate!!.put(url, request)
+
+        //then
+
+        val changedToilet = toiletRepository!!.findById(savedToilet.id).get()
+        assertThat(changedToilet.toiletName).isEqualTo("길음 화장실")
+        assertThat(changedToilet.tel).isEqualTo("02-266-8323")
+        assertThat(changedToilet.openTime).isEqualTo(LocalTime.of(6,0,0))
+        assertThat(changedToilet.closeTime).isEqualTo(LocalTime.of(22,10,0))
+        assertThat(changedToilet.mw).isEqualTo(true)
+        assertThat(changedToilet.m1).isEqualTo(10)
+        assertThat(changedToilet.m2).isEqualTo(9)
+        assertThat(changedToilet.m3).isEqualTo(8)
+        assertThat(changedToilet.m4).isEqualTo(7)
+        assertThat(changedToilet.m5).isEqualTo(6)
+        assertThat(changedToilet.m6).isEqualTo(5)
+        assertThat(changedToilet.w1).isEqualTo(4)
+        assertThat(changedToilet.w2).isEqualTo(3)
+        assertThat(changedToilet.w3).isEqualTo(2)
     }
 }

@@ -8,7 +8,7 @@ import java.time.LocalTime
 @ApiModel(value = "화장실 저장 정보", description = "화장실 정보를 저장할 때 사용하는 model")
 class ToiletSaveDto(
         @ApiModelProperty(value = "화장실 위도", required = true) val longitude : Double,
-        @ApiModelProperty(value = "화장실 경도", required = true)val latitude : Double,
+        @ApiModelProperty(value = "화장실 경도", required = true) val latitude : Double,
         @ApiModelProperty(value = "화장실 이름", required = true) val toiletName : String,
         @ApiModelProperty(value = "화장실 전화번호") val tel : String?,
         @ApiModelProperty(value = "개방 시작 시간") val openTime : LocalTime?,

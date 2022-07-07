@@ -34,10 +34,14 @@ jobs:
       - name: Run chmod to make gradlew executable
         run: chmod +x ./gradlew
 
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
-        
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      - name: Build with Gradle # 실제 application build(-x 옵션을 통해 test는 제외)
+        run: ./gradlew build -x test
+
+      - name: Test with Gradle # test application build
+        run: ./gradlew test
+
+      - name: Publish Unit Test Results # test 후 result를 보기 위해 추가
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: ${{ always() }} # test가 실패해도 report를 남기기 위해 설정
         with:
-          arguments: build
+          files: build/test-results/**/*.xml

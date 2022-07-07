@@ -19,7 +19,7 @@ class RestApiController(val appService: AppService) {
     }
 
     @ApiIgnore
-    @GetMapping("/toilets/search/{id}")
+    @GetMapping("/toilets/{id}")
     fun findById(@PathVariable id : Long) : ToiletLocationDto {
         return appService.findToiletById(id)
     }

@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+	implementation("mysql:mysql-connector-java")
 	implementation("io.springfox:springfox-swagger2:2.9.2")
 	implementation("io.springfox:springfox-swagger-ui:2.9.2")
 	implementation("junit:junit:4.13.2")

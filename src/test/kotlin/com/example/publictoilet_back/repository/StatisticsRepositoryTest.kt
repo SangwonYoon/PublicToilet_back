@@ -36,14 +36,12 @@ StatisticsRepositoryTest {
         statisticsRepository!!.save(Statistics(toilet = savedToilet))
 
         //when
-        val statisticsList = (statisticsRepository!!.findAll())
-        val statistics = statisticsList[0]
+        val statistics = (statisticsRepository!!.findByToiletId(savedToilet.id)).get()
 
         val toilet = toiletRepository!!.findAll()[0]
 
         //then
         assertThat(toilet.latitude).isEqualTo(10.23)
-        assertThat(statisticsList.size).isEqualTo(1)
         assertThat(statistics.toilet!!.id).isEqualTo(savedToilet.id)
         assertThat(statistics.score_avg).isNull()
     }

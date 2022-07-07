@@ -2,15 +2,25 @@ package com.example.publictoilet_back.service
 
 import com.example.publictoilet_back.dto.ToiletLocationDto
 import com.example.publictoilet_back.dto.ToiletInfoDto
+import com.example.publictoilet_back.dto.ToiletSaveDto
+import com.example.publictoilet_back.dto.ToiletUpdateDto
 import com.example.publictoilet_back.entity.Statistics
 import com.example.publictoilet_back.entity.Toilet
 import com.example.publictoilet_back.repository.StatisticsRepository
 import com.example.publictoilet_back.repository.ToiletRepository
 import org.springframework.stereotype.Service
+import javax.transaction.Transactional
 import kotlin.math.*
 
 @Service
 class ToiletService(val toiletRepository: ToiletRepository, val statisticsRepository: StatisticsRepository) {
+
+    fun saveToilet(toiletSaveDto: ToiletSaveDto) : Long?{
+        val savedToilet = toiletRepository.save(toiletSaveDto.toEntity())
+        statisticsRepository.save(Statistics(toilet = savedToilet))
+        return savedToilet.id
+    }
+
     fun findById(id : Long) : ToiletLocationDto {
         val entity = toiletRepository.findById(id).orElseThrow{
             java.lang.IllegalArgumentException("해당 화장실은 존재하지 않습니다. id=$id")
@@ -47,6 +57,15 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         return result
     }
 
+    @Transactional
+    fun updateToiletInfo(id : Long, toiletUpdateDto: ToiletUpdateDto) : Long?{
+        val toilet = toiletRepository.findById(id).orElseThrow {
+            IllegalArgumentException("해당 화장실은 존재하지 않습니다. id=$id")
+        }
+        toilet.update(toiletUpdateDto)
+        return id
+    }
+
     /**
      * 두 좌표의 거리를 계산한다.
      *
@@ -65,7 +84,7 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
     }
 
     fun findOrCreateStatistics(toilet : Toilet) : Statistics{
-        val findStatistics = statisticsRepository.findById(toilet.id)
+        val findStatistics = statisticsRepository.findByToiletId(toilet.id)
 
         return if(findStatistics.isPresent){
             findStatistics.get()

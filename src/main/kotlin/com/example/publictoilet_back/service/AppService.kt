@@ -1,15 +1,16 @@
 package com.example.publictoilet_back.service
 
-import com.example.publictoilet_back.dto.ReviewRequestDto
-import com.example.publictoilet_back.dto.ReviewResponseDto
-import com.example.publictoilet_back.dto.ToiletLocationDto
-import com.example.publictoilet_back.dto.ToiletInfoDto
+import com.example.publictoilet_back.dto.*
 import com.example.publictoilet_back.repository.ReviewRepository
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
 @Service
 class AppService(val reviewService: ReviewService, val toiletService: ToiletService) {
+
+    fun saveToilet(toiletSaveDto: ToiletSaveDto) : Long?{
+        return toiletService.saveToilet(toiletSaveDto)
+    }
 
     fun findToiletById(id : Long) : ToiletLocationDto{
         return toiletService.findById(id)
@@ -30,5 +31,10 @@ class AppService(val reviewService: ReviewService, val toiletService: ToiletServ
     @Transactional
     fun saveReview(reviewRequestDto : ReviewRequestDto) : Long? {
         return reviewService.save(reviewRequestDto)
+    }
+
+    @Transactional
+    fun updateToiletInfo(id : Long, toiletUpdateDto: ToiletUpdateDto) : Long?{
+        return toiletService.updateToiletInfo(id, toiletUpdateDto)
     }
 }

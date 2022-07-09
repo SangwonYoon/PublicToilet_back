@@ -21,8 +21,18 @@ jobs:
   TEST:
 
     runs-on: ubuntu-latest # 실행 환경 지정
-
+    
+    env:
+      DB_DATABASE: test_db
+      DB_USER: root
+      DB_PASSWORD: root
+      
     steps:
+      - name: Set up MySQL
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
+
       - name: checkout source code
         uses: actions/checkout@v3 # github action 버전 지정(major version)
         

@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+	implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7")
 	implementation("mysql:mysql-connector-java")
 	implementation("io.springfox:springfox-swagger2:2.9.2")
 	implementation("io.springfox:springfox-swagger-ui:2.9.2")

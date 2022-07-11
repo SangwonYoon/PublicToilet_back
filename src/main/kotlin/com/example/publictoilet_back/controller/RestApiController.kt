@@ -20,7 +20,7 @@ class RestApiController(val appService: AppService) {
 
     @ApiIgnore
     @GetMapping("/toilets/{id}")
-    fun findById(@PathVariable id : Long) : ToiletLocationDto {
+    fun findById(@PathVariable id : Long) : ToiletInfoDto {
         return appService.findToiletById(id)
     }
 
@@ -31,7 +31,7 @@ class RestApiController(val appService: AppService) {
         ApiImplicitParam(name = "range", value = "탐색 범위", required = true)
     )
     @GetMapping("/toilets/search")
-    fun findNearToilet(@RequestParam latitude : Double, @RequestParam longitude : Double, @RequestParam range : Int) : MutableList<ToiletLocationDto>{
+    fun findNearToilet(@RequestParam latitude : Double, @RequestParam longitude : Double, @RequestParam range : Int) : MutableList<ToiletInfoDto>{
         return appService.findNearToilet(latitude, longitude, range)
     }
 

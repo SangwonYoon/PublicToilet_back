@@ -1,6 +1,5 @@
 package com.example.publictoilet_back.service
 
-import com.example.publictoilet_back.dto.ToiletLocationDto
 import com.example.publictoilet_back.dto.ToiletInfoDto
 import com.example.publictoilet_back.dto.ToiletSaveDto
 import com.example.publictoilet_back.dto.ToiletUpdateDto
@@ -21,12 +20,12 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         return savedToilet.id
     }
 
-    fun findById(id : Long) : ToiletLocationDto {
+    fun findById(id : Long) : ToiletInfoDto {
         val entity = toiletRepository.findById(id).orElseThrow{
             java.lang.IllegalArgumentException("해당 화장실은 존재하지 않습니다. id=$id")
         }
 
-        return ToiletLocationDto(entity)
+        return ToiletInfoDto(entity)
     }
 
     fun findInfo(id: Long) : ToiletInfoDto {
@@ -34,25 +33,20 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
             IllegalArgumentException("해당 화장실은 존재하지 않습니다. id=$id")
         }
 
-        val statistics = findOrCreateStatistics(entity)
+        val statistics = findOrCreateStatistics(id)
 
         return ToiletInfoDto(statistics, entity)
     }
 
-    fun findNearToilet(latitude : Double, longitude : Double, range : Int) : MutableList<ToiletLocationDto>{
-        val toilets = toiletRepository.findAll() // TODO findAll()을 조건문 쿼리로 수정 필요
-        val result = mutableListOf<ToiletLocationDto>()
-        for (toilet in toilets){
-            val distance = (getDistance(latitude, longitude, toilet.latitude, toilet.longitude)).toDouble() / 1000
-            if(distance <= range) {
-                val statistics = findOrCreateStatistics(toilet)
-                val temp = ToiletLocationDto(toilet, distance, statistics)
-                result.add(temp)
-            }
+    fun findNearToilet(latitude : Double, longitude : Double, range : Int) : MutableList<ToiletInfoDto>{
+        val result = mutableListOf<ToiletInfoDto>()
+        val toiletInfoProjections = toiletRepository.findNearToilet(latitude, longitude, range) ?: return result
+        for (toiletInfoProjection in toiletInfoProjections){
+            val toiletInfoDto = ToiletInfoDto(toiletInfoProjection)
+            val statistics = findOrCreateStatistics(toiletInfoDto.id!!)
+            toiletInfoDto.score_avg = statistics.score_avg
+            result.add(toiletInfoDto)
         }
-
-        val comparator = compareBy<ToiletLocationDto> { it.distance }
-        result.sortWith(comparator) // 거리 기준으로 리스트 정렬
 
         return result
     }
@@ -83,13 +77,13 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         return (R * c).toInt()
     }
 
-    fun findOrCreateStatistics(toilet : Toilet) : Statistics{
-        val findStatistics = statisticsRepository.findByToiletId(toilet.id)
+    fun findOrCreateStatistics(toiletId : Long) : Statistics{
+        val findStatistics = statisticsRepository.findByToiletId(toiletId)
 
         return if(findStatistics.isPresent){
             findStatistics.get()
         }else{
-            statisticsRepository.save(Statistics(toilet = toilet))
+            statisticsRepository.save(Statistics(toilet = toiletRepository.findById(toiletId).get()))
         }
     }
 

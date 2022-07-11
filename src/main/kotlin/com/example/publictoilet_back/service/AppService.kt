@@ -12,7 +12,7 @@ class AppService(val reviewService: ReviewService, val toiletService: ToiletServ
         return toiletService.saveToilet(toiletSaveDto)
     }
 
-    fun findToiletById(id : Long) : ToiletLocationDto{
+    fun findToiletById(id : Long) : ToiletInfoDto{
         return toiletService.findById(id)
     }
 
@@ -20,7 +20,7 @@ class AppService(val reviewService: ReviewService, val toiletService: ToiletServ
         return toiletService.findInfo(id)
     }
 
-    fun findNearToilet(latitude : Double, longitude : Double, range : Int) : MutableList<ToiletLocationDto>{
+    fun findNearToilet(latitude : Double, longitude : Double, range : Int) : MutableList<ToiletInfoDto>{
         return toiletService.findNearToilet(latitude, longitude, range)
     }
 

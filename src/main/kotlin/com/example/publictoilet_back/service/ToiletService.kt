@@ -43,8 +43,6 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         val toiletInfoProjections = toiletRepository.findNearToilet(latitude, longitude, range) ?: return result
         for (toiletInfoProjection in toiletInfoProjections){
             val toiletInfoDto = ToiletInfoDto(toiletInfoProjection)
-            val statistics = findOrCreateStatistics(toiletInfoDto.id!!)
-            toiletInfoDto.score_avg = statistics.score_avg
             result.add(toiletInfoDto)
         }
 

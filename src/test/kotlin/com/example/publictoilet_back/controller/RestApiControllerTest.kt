@@ -55,7 +55,7 @@ class RestApiControllerTest {
     @Test
     fun saveToiletTest(){
         //given
-        val request = ToiletSaveDto(longitude = 10.34, latitude = 40.54, toiletName = "정릉 화장실", tel = "02-547-2323", openTime = LocalTime.of(5, 30, 0), closeTime = LocalTime.of(22,40,0), mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9)
+        val request = ToiletInfoDto(longitude = 10.34, latitude = 40.54, toiletName = "정릉 화장실", tel = "02-547-2323", openTime = LocalTime.of(5, 30, 0), closeTime = LocalTime.of(22,40,0), mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9)
 
         val url = "http://localhost:$port/toilets"
 
@@ -123,7 +123,7 @@ class RestApiControllerTest {
         params.add("longitude", userLongitude)
         params.add("range", range)
 
-        val responseEntity = restTemplate!!.getForEntity(url, Array<ToiletLocationDto>::class.java)
+        val responseEntity = restTemplate!!.getForEntity(url, Array<ToiletInfoDto>::class.java)
 
         //then
         assertThat(responseEntity.statusCode).isEqualTo(HttpStatus.OK)

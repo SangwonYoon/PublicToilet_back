@@ -14,13 +14,13 @@ class RestApiController(val appService: AppService) {
 
     @ApiOperation(value = "화장실 정보 저장", notes = "화장실 상세 정보를 저장한다.")
     @PostMapping("/toilets")
-    fun saveToilet(@RequestBody toiletSaveDto: ToiletSaveDto) : Long?{
-        return appService.saveToilet(toiletSaveDto)
+    fun saveToilet(@RequestBody toiletInfoDto: ToiletInfoDto) : Long?{
+        return appService.saveToilet(toiletInfoDto)
     }
 
     @ApiIgnore
     @GetMapping("/toilets/{id}")
-    fun findById(@PathVariable id : Long) : ToiletLocationDto {
+    fun findById(@PathVariable id : Long) : ToiletInfoDto {
         return appService.findToiletById(id)
     }
 
@@ -31,7 +31,7 @@ class RestApiController(val appService: AppService) {
         ApiImplicitParam(name = "range", value = "탐색 범위", required = true)
     )
     @GetMapping("/toilets/search")
-    fun findNearToilet(@RequestParam latitude : Double, @RequestParam longitude : Double, @RequestParam range : Int) : MutableList<ToiletLocationDto>{
+    fun findNearToilet(@RequestParam latitude : Double, @RequestParam longitude : Double, @RequestParam range : Int) : MutableList<ToiletInfoDto>{
         return appService.findNearToilet(latitude, longitude, range)
     }
 

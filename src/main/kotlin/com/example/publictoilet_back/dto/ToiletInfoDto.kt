@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 import io.swagger.annotations.ApiParam
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @ApiModel(value = "ToiletInfoDto (화장실 조회 정보)", description = "화장실 조회할 때 사용하는 model")
@@ -27,11 +28,37 @@ class ToiletInfoDto(
         @ApiModelProperty(value = "여성용 대변기 수", required = true) val w1 : Int,
         @ApiModelProperty(value = "여성 장애인용 대변기 수", required = true) val w2 : Int,
         @ApiModelProperty(value = "여성 어린이용 대변기 수", required = true) val w3 : Int,
-        @ApiModelProperty(value = "평점 평균") val score_avg : Float? = null,
+        @ApiModelProperty(value = "평점 평균") var score_avg : Float? = null,
         @ApiModelProperty(value = "화장실과 사용자와의 거리") val distance : Double? = null) {
 
     constructor(toilet: Toilet) : this(toilet.id, toilet.longitude, toilet.latitude, toilet.toiletName, toilet.tel, toilet.openTime, toilet.closeTime, toilet.mw, toilet.m1, toilet.m2, toilet.m3, toilet.m4, toilet.m5, toilet.m6, toilet.w1, toilet.w2, toilet.w3, null, null)
     constructor(statisticsDto: Statistics, toilet: Toilet) : this(toilet.id, toilet.longitude, toilet.latitude, toilet.toiletName, toilet.tel, toilet.openTime, toilet.closeTime, toilet.mw, toilet.m1, toilet.m2, toilet.m3, toilet.m4, toilet.m5, toilet.m6, toilet.w1, toilet.w2, toilet.w3, statisticsDto.score_avg, null)
-
+    constructor(toiletInfoProjection: ToiletInfoProjection) : this(toiletInfoProjection.id, toiletInfoProjection.longitude, toiletInfoProjection.latitude, toiletInfoProjection.toiletName, toiletInfoProjection.tel, toiletInfoProjection.openTime, toiletInfoProjection.closeTime, toiletInfoProjection.mw, toiletInfoProjection.m1, toiletInfoProjection.m2, toiletInfoProjection.m3, toiletInfoProjection.m4, toiletInfoProjection.m5, toiletInfoProjection.m6, toiletInfoProjection.w1, toiletInfoProjection.w2, toiletInfoProjection.w3, null, toiletInfoProjection.distance)
     constructor(toilet : Toilet, statisticsDto: Statistics, distance: Double) : this(toilet.id, toilet.longitude, toilet.latitude, toilet.toiletName, toilet.tel, toilet.openTime, toilet.closeTime, toilet.mw, toilet.m1, toilet.m2, toilet.m3, toilet.m4, toilet.m5, toilet.m6, toilet.w1, toilet.w2, toilet.w3, statisticsDto.score_avg, distance)
+
+    fun toEntity() : Toilet {
+        return Toilet(longitude = longitude, latitude = latitude, toiletName = toiletName, tel = tel, openTime = openTime, closeTime = closeTime, mw = mw, m1 = m1, m2 = m2, m3 = m3, m4 = m4, m5 = m5, m6 = m6, w1 = w1, w2 = w2, w3 = w3)
+    }
+}
+
+interface ToiletInfoProjection {
+    val id : Long
+    val longitude : Double
+    val latitude : Double
+    val toiletName : String?
+    val tel : String?
+    val openTime : LocalTime?
+    val closeTime : LocalTime?
+    val mw : Boolean?
+    val m1 : Int
+    val m2 : Int
+    val m3 : Int
+    val m4 : Int
+    val m5 : Int
+    val m6 : Int
+    val w1 : Int
+    val w2 : Int
+    val w3 : Int
+    val score_avg : Float?
+    val distance : Double?
 }

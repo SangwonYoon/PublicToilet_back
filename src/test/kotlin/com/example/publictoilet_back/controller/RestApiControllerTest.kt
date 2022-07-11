@@ -106,14 +106,14 @@ class RestApiControllerTest {
     fun findNearToiletTest(){
         //given
         val toilet1 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 30.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, closeTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
-        val toilet4 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 90.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, closeTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
+        val toilet4 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 75.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, closeTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
         val toilet2 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 50.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, closeTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
         val toilet3 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 70.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, closeTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
-        val toilet5 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 110.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, closeTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
+        val toilet5 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 80.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, closeTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
 
         val userLatitude = "30.54"
         val userLongitude = "10.34"
-        val range = "10000"
+        val range = "10000000"
 
         val url = "http://localhost:$port/toilets/search?latitude=$userLatitude&longitude=$userLongitude&range=$range"
 

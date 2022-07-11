@@ -8,8 +8,8 @@ import javax.transaction.Transactional
 @Service
 class AppService(val reviewService: ReviewService, val toiletService: ToiletService) {
 
-    fun saveToilet(toiletInfoDto: ToiletInfoDto) : Long?{
-        return toiletService.saveToilet(toiletInfoDto)
+    fun saveToilet(toiletSaveDto: ToiletSaveDto) : Long?{
+        return toiletService.saveToilet(toiletSaveDto)
     }
 
     fun findToiletById(id : Long) : ToiletInfoDto{

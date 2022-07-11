@@ -1,6 +1,7 @@
 package com.example.publictoilet_back.service
 
 import com.example.publictoilet_back.dto.ToiletInfoDto
+import com.example.publictoilet_back.dto.ToiletSaveDto
 import com.example.publictoilet_back.dto.ToiletUpdateDto
 import com.example.publictoilet_back.entity.Statistics
 import com.example.publictoilet_back.entity.Toilet
@@ -13,8 +14,8 @@ import kotlin.math.*
 @Service
 class ToiletService(val toiletRepository: ToiletRepository, val statisticsRepository: StatisticsRepository) {
 
-    fun saveToilet(toiletInfoDto: ToiletInfoDto) : Long?{
-        val savedToilet = toiletRepository.save(toiletInfoDto.toEntity())
+    fun saveToilet(toiletSaveDto: ToiletSaveDto) : Long?{
+        val savedToilet = toiletRepository.save(toiletSaveDto.toEntity())
         statisticsRepository.save(Statistics(toilet = savedToilet))
         return savedToilet.id
     }

@@ -14,8 +14,8 @@ class RestApiController(val appService: AppService) {
 
     @ApiOperation(value = "화장실 정보 저장", notes = "화장실 상세 정보를 저장한다.")
     @PostMapping("/toilets")
-    fun saveToilet(@RequestBody toiletInfoDto: ToiletInfoDto) : Long?{
-        return appService.saveToilet(toiletInfoDto)
+    fun saveToilet(@RequestBody toiletSaveDto: ToiletSaveDto) : Long?{
+        return appService.saveToilet(toiletSaveDto)
     }
 
     @ApiIgnore

@@ -191,7 +191,7 @@ class RestApiControllerTest {
     fun updateToiletInfoTest(){
         //given
         val savedToilet = toiletRepository!!.save(tempToilet)
-        val request = ToiletUpdateDto(toiletName = "길음 화장실", tel = "02-266-8323", openTime = LocalTime.of(6,0,0), closeTime = LocalTime.of(22,10,0), mw = true, m1 = 10, m2 = 9, m3 = 8, m4 = 7, m5 = 6, m6 = 5, w1 = 4, w2 = 3, w3 = 2)
+        val request = ToiletUpdateDto(toiletName = "길음 화장실", tel = "02-266-8323", openTime = "06:00:00", closeTime = "22:10:00", mw = true, m1 = 10, m2 = 9, m3 = 8, m4 = 7, m5 = 6, m6 = 5, w1 = 4, w2 = 3, w3 = 2)
 
         val url = "http://localhost:$port/toilets/${savedToilet.id}"
 

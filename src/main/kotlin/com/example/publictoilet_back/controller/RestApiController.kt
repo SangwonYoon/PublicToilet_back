@@ -50,9 +50,10 @@ class RestApiController(val appService: AppService) {
     }
 
     @ApiOperation(value = "리뷰 저장", notes = "화장실 리뷰를 저장한다.")
-    @PostMapping("/reviews")
-    fun saveReview(@RequestBody reviewRequestDto : ReviewRequestDto) : Long?{
-        return appService.saveReview(reviewRequestDto)
+    @ApiImplicitParam(name = "toilet_id", value = "화장실 id", required = true)
+    @PostMapping("/reviews/{toilet_id}")
+    fun saveReview(@PathVariable toilet_id : Long, @RequestBody reviewRequestDto : ReviewRequestDto) : Long?{
+        return appService.saveReview(toilet_id, reviewRequestDto)
     }
 
     @ApiOperation(value = "화장실 정보 수정", notes = "화장실 상세 정보를 수정한다.")

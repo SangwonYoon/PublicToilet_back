@@ -140,9 +140,9 @@ class RestApiControllerTest {
         //given
         val savedToilet = toiletRepository!!.save(tempToilet)
         statisticsRepository!!.save(Statistics(toilet = savedToilet))
-        val request1 = ReviewRequestDto(toilet_id = savedToilet.id, comment = "hello", score = 5.0F)
-        val request2 = ReviewRequestDto(toilet_id = savedToilet.id, comment = "hello", score = 4.0F)
-        val request3 = ReviewRequestDto(toilet_id = savedToilet.id, comment = "hello", score = 3.0F)
+        val request1 = ReviewRequestDto(comment = "hello", score = 5.0F)
+        val request2 = ReviewRequestDto(comment = "hello", score = 4.0F)
+        val request3 = ReviewRequestDto(comment = "hello", score = 3.0F)
 
         val url = "http://localhost:$port/reviews"
 

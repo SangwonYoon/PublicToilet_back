@@ -33,12 +33,9 @@ class ToiletInfoDto(
 
     constructor(toilet: Toilet) : this(toilet.id, toilet.longitude, toilet.latitude, toilet.toiletName, toilet.tel, toilet.openTime, toilet.closeTime, toilet.mw, toilet.m1, toilet.m2, toilet.m3, toilet.m4, toilet.m5, toilet.m6, toilet.w1, toilet.w2, toilet.w3, null, null)
     constructor(statisticsDto: Statistics, toilet: Toilet) : this(toilet.id, toilet.longitude, toilet.latitude, toilet.toiletName, toilet.tel, toilet.openTime, toilet.closeTime, toilet.mw, toilet.m1, toilet.m2, toilet.m3, toilet.m4, toilet.m5, toilet.m6, toilet.w1, toilet.w2, toilet.w3, statisticsDto.score_avg, null)
-    constructor(toiletInfoProjection: ToiletInfoProjection) : this(toiletInfoProjection.id, toiletInfoProjection.longitude, toiletInfoProjection.latitude, toiletInfoProjection.toiletName, toiletInfoProjection.tel, toiletInfoProjection.openTime, toiletInfoProjection.closeTime, toiletInfoProjection.mw, toiletInfoProjection.m1, toiletInfoProjection.m2, toiletInfoProjection.m3, toiletInfoProjection.m4, toiletInfoProjection.m5, toiletInfoProjection.m6, toiletInfoProjection.w1, toiletInfoProjection.w2, toiletInfoProjection.w3, null, toiletInfoProjection.distance)
+    constructor(toiletInfoProjection: ToiletInfoProjection) : this(toiletInfoProjection.id, toiletInfoProjection.longitude, toiletInfoProjection.latitude, toiletInfoProjection.toiletName, toiletInfoProjection.tel, toiletInfoProjection.openTime, toiletInfoProjection.closeTime, toiletInfoProjection.mw, toiletInfoProjection.m1, toiletInfoProjection.m2, toiletInfoProjection.m3, toiletInfoProjection.m4, toiletInfoProjection.m5, toiletInfoProjection.m6, toiletInfoProjection.w1, toiletInfoProjection.w2, toiletInfoProjection.w3, toiletInfoProjection.score_avg, toiletInfoProjection.distance)
     constructor(toilet : Toilet, statisticsDto: Statistics, distance: Double) : this(toilet.id, toilet.longitude, toilet.latitude, toilet.toiletName, toilet.tel, toilet.openTime, toilet.closeTime, toilet.mw, toilet.m1, toilet.m2, toilet.m3, toilet.m4, toilet.m5, toilet.m6, toilet.w1, toilet.w2, toilet.w3, statisticsDto.score_avg, distance)
 
-    fun toEntity() : Toilet {
-        return Toilet(longitude = longitude, latitude = latitude, toiletName = toiletName, tel = tel, openTime = openTime, closeTime = closeTime, mw = mw, m1 = m1, m2 = m2, m3 = m3, m4 = m4, m5 = m5, m6 = m6, w1 = w1, w2 = w2, w3 = w3)
-    }
 }
 
 interface ToiletInfoProjection {

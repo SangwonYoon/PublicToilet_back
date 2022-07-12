@@ -22,7 +22,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.util.LinkedMultiValueMap
 import java.time.LocalTime
-/*
+
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class RestApiControllerTest {
@@ -217,5 +217,3 @@ class RestApiControllerTest {
         assertThat(changedToilet.w3).isEqualTo(2)
     }
 }
-
- */

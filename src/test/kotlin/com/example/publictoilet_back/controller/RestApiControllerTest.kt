@@ -144,7 +144,7 @@ class RestApiControllerTest {
         val request2 = ReviewRequestDto(comment = "hello", score = 4.0F)
         val request3 = ReviewRequestDto(comment = "hello", score = 3.0F)
 
-        val url = "http://localhost:$port/reviews"
+        val url = "http://localhost:$port/reviews/${savedToilet.id}"
 
         //when
         val responseEntity = restTemplate!!.postForEntity(url, request1, Long::class.java)

@@ -33,7 +33,7 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
             IllegalArgumentException("해당 화장실은 존재하지 않습니다. id=$id")
         }
 
-        val statistics = findOrCreateStatistics(id)
+        val statistics = findOrCreateStatistics(entity)
 
         return ToiletInfoDto(statistics, entity)
     }
@@ -75,13 +75,13 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         return (R * c).toInt()
     }
 
-    fun findOrCreateStatistics(toiletId : Long) : Statistics{
-        val findStatistics = statisticsRepository.findByToiletId(toiletId)
+    fun findOrCreateStatistics(toilet : Toilet) : Statistics{
+        val findStatistics = statisticsRepository.findByToiletId(toilet.id)
 
         return if(findStatistics.isPresent){
             findStatistics.get()
         }else{
-            statisticsRepository.save(Statistics(toilet = toiletRepository.findById(toiletId).get()))
+            statisticsRepository.save(Statistics(toilet = toilet))
         }
     }
 

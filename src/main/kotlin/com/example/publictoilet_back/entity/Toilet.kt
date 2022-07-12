@@ -4,6 +4,7 @@ import com.example.publictoilet_back.dto.ToiletInfoDto
 import com.example.publictoilet_back.dto.ToiletUpdateDto
 import org.jetbrains.annotations.NotNull
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.persistence.*
 
@@ -36,8 +37,8 @@ class Toilet(
         fun update(toiletUpdateDto: ToiletUpdateDto){
                 this.toiletName = toiletUpdateDto.toiletName
                 this.tel = toiletUpdateDto.tel
-                this.openTime = toiletUpdateDto.openTime
-                this.closeTime = toiletUpdateDto.closeTime
+                this.openTime = LocalTime.parse(toiletUpdateDto.openTime, DateTimeFormatter.ofPattern("HH:mm:ss"))
+                this.closeTime = LocalTime.parse(toiletUpdateDto.closeTime, DateTimeFormatter.ofPattern("HH:mm:ss"))
                 this.mw = toiletUpdateDto.mw
                 this.m1 = toiletUpdateDto.m1
                 this.m2 = toiletUpdateDto.m2

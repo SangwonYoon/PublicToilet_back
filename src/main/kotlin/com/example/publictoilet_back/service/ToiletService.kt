@@ -7,6 +7,7 @@ import com.example.publictoilet_back.entity.Statistics
 import com.example.publictoilet_back.entity.Toilet
 import com.example.publictoilet_back.repository.StatisticsRepository
 import com.example.publictoilet_back.repository.ToiletRepository
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 import kotlin.math.*
@@ -28,6 +29,7 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         return ToiletInfoDto(entity)
     }
 
+    @Cacheable(value = ["toilet"], key = "#id", cacheManager = "cacheManager")
     fun findInfo(id: Long) : ToiletInfoDto {
         val entity = toiletRepository.findById(id).orElseThrow{
             IllegalArgumentException("해당 화장실은 존재하지 않습니다. id=$id")

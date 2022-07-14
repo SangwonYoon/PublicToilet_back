@@ -5,6 +5,7 @@ import com.example.publictoilet_back.entity.Toilet
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 import io.swagger.annotations.ApiParam
+import java.io.Serializable
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -29,7 +30,7 @@ class ToiletInfoDto(
         @ApiModelProperty(value = "여성 장애인용 대변기 수", required = true) val w2 : Int,
         @ApiModelProperty(value = "여성 어린이용 대변기 수", required = true) val w3 : Int,
         @ApiModelProperty(value = "평점 평균") var score_avg : Float? = null,
-        @ApiModelProperty(value = "화장실과 사용자와의 거리") val distance : Double? = null) {
+        @ApiModelProperty(value = "화장실과 사용자와의 거리") val distance : Double? = null) : Serializable {
 
     constructor(toilet: Toilet) : this(toilet.id, toilet.longitude, toilet.latitude, toilet.toiletName, toilet.tel, toilet.openTime, toilet.closeTime, toilet.mw, toilet.m1, toilet.m2, toilet.m3, toilet.m4, toilet.m5, toilet.m6, toilet.w1, toilet.w2, toilet.w3, null, null)
     constructor(statisticsDto: Statistics, toilet: Toilet) : this(toilet.id, toilet.longitude, toilet.latitude, toilet.toiletName, toilet.tel, toilet.openTime, toilet.closeTime, toilet.mw, toilet.m1, toilet.m2, toilet.m3, toilet.m4, toilet.m5, toilet.m6, toilet.w1, toilet.w2, toilet.w3, statisticsDto.score_avg, null)

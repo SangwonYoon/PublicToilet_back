@@ -2,6 +2,7 @@ package com.example.publictoilet_back.service
 
 import com.example.publictoilet_back.dto.*
 import com.example.publictoilet_back.repository.ReviewRepository
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
@@ -16,6 +17,7 @@ class AppService(val reviewService: ReviewService, val toiletService: ToiletServ
         return toiletService.findById(id)
     }
 
+    //@Cacheable(value = ["toilet"], key = "#id", cacheManager = "cacheManager")
     fun findToiletInfo(id : Long) : ToiletInfoDto {
         return toiletService.findInfo(id)
     }

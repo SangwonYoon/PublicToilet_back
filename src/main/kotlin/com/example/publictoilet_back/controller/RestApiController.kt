@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
+import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.web.bind.annotation.*
 import springfox.documentation.annotations.ApiIgnore
@@ -52,9 +53,9 @@ class RestApiController(val appService: AppService) {
     fun findReviewsByToiletId(@PathVariable toilet_id : Long) : MutableList<ReviewResponseDto>{
         return appService.findReviewByToiletId(toilet_id)
     }
-
     @ApiOperation(value = "리뷰 저장", notes = "화장실 리뷰를 저장한다.")
     @ApiImplicitParam(name = "toilet_id", value = "화장실 id", required = true)
+    @CacheEvict(value = ["review"], key = "#toilet_id", cacheManager = "cacheManager")
     @PostMapping("/reviews/{toilet_id}")
     fun saveReview(@PathVariable toilet_id : Long, @RequestBody reviewRequestDto : ReviewRequestDto) : Long?{
         return appService.saveReview(toilet_id, reviewRequestDto)
@@ -62,6 +63,7 @@ class RestApiController(val appService: AppService) {
 
     @ApiOperation(value = "화장실 정보 수정", notes = "화장실 상세 정보를 수정한다.")
     @ApiImplicitParam(name = "toilet_id", value = "화장실 id", required = true)
+    @CacheEvict(value = ["toilet"], key = "#toilet_id", cacheManager = "cacheManager")
     @PutMapping("/toilets/{toilet_id}")
     fun updateToiletInfo(@PathVariable toilet_id : Long, @RequestBody toiletUpdateDto : ToiletUpdateDto) : Long?{
         return appService.updateToiletInfo(toilet_id, toiletUpdateDto)

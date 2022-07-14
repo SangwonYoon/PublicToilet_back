@@ -39,7 +39,7 @@ class RestApiController(val appService: AppService) {
 
     @ApiOperation(value = "화장실 정보 조회", notes = "화장실 상세 정보를 조회한다.")
     @ApiImplicitParam(name = "toilet_id", value = "화장실 id", required = true)
-    //@Cacheable(value = ["toilet"], key = "#id", cacheManager = "cacheManager")
+    @Cacheable(value = ["toilet"], key = "#toilet_id", cacheManager = "cacheManager")
     @GetMapping("/toilets/{toilet_id}/info")
     fun findInfo(@PathVariable toilet_id : Long) : ToiletInfoDto {
         return appService.findToiletInfo(toilet_id)
@@ -47,6 +47,7 @@ class RestApiController(val appService: AppService) {
 
     @ApiOperation(value = "화장실 리뷰 조회", notes = "조회하고자 하는 화장실의 리뷰를 조회한다.")
     @ApiImplicitParam(name = "toilet_id", value = "화장실 id", required = true)
+    @Cacheable(value = ["review"], key = "#toilet_id", cacheManager = "cacheManager")
     @GetMapping("toilets/{toilet_id}/reviews")
     fun findReviewsByToiletId(@PathVariable toilet_id : Long) : MutableList<ReviewResponseDto>{
         return appService.findReviewByToiletId(toilet_id)

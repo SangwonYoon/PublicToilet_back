@@ -17,7 +17,6 @@ class AppService(val reviewService: ReviewService, val toiletService: ToiletServ
         return toiletService.findById(id)
     }
 
-    //@Cacheable(value = ["toilet"], key = "#id", cacheManager = "cacheManager")
     fun findToiletInfo(id : Long) : ToiletInfoDto {
         return toiletService.findInfo(id)
     }

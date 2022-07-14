@@ -29,7 +29,6 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         return ToiletInfoDto(entity)
     }
 
-    @Cacheable(value = ["toilet"], key = "#id", cacheManager = "cacheManager")
     fun findInfo(id: Long) : ToiletInfoDto {
         val entity = toiletRepository.findById(id).orElseThrow{
             IllegalArgumentException("해당 화장실은 존재하지 않습니다. id=$id")
@@ -60,6 +59,7 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         return id
     }
 
+    /*
     /**
      * 두 좌표의 거리를 계산한다.
      *
@@ -76,6 +76,7 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         val c = 2 * asin(sqrt(a))
         return (R * c).toInt()
     }
+     */
 
     fun findOrCreateStatistics(toilet : Toilet) : Statistics{
         val findStatistics = statisticsRepository.findByToiletId(toilet.id)

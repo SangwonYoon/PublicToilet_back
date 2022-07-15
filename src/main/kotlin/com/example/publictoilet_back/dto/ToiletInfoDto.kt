@@ -17,8 +17,8 @@ class ToiletInfoDto(
         @ApiModelProperty(value = "화장실 경도", required = true) val latitude : Double,
         @ApiModelProperty(value = "화장실 이름") val toiletName : String?,
         @ApiModelProperty(value = "전화번호") val tel : String?,
-        @ApiModelProperty(value = "개방 시작 시간") val openTime : LocalTime?,
-        @ApiModelProperty(value = "개방 마감 시간") val closeTime : LocalTime?,
+        @ApiModelProperty(value = "개방 시간") val openTime : String?,
+        //@ApiModelProperty(value = "개방 마감 시간") val closeTime : LocalTime?,
         @ApiModelProperty(value = "남녀 공용 화장실 여부") val mw : Boolean?,
         @ApiModelProperty(value = "남성용 대변기 수", required = true) val m1 : Int,
         @ApiModelProperty(value = "남성용 소변기 수", required = true) val m2 : Int,
@@ -32,10 +32,10 @@ class ToiletInfoDto(
         @ApiModelProperty(value = "평점 평균") var score_avg : Float? = null,
         @ApiModelProperty(value = "화장실과 사용자와의 거리") val distance : Double? = null) : Serializable {
 
-    constructor(toilet: Toilet) : this(toilet.id, toilet.longitude, toilet.latitude, toilet.toiletName, toilet.tel, toilet.openTime, toilet.closeTime, toilet.mw, toilet.m1, toilet.m2, toilet.m3, toilet.m4, toilet.m5, toilet.m6, toilet.w1, toilet.w2, toilet.w3, null, null)
-    constructor(statisticsDto: Statistics, toilet: Toilet) : this(toilet.id, toilet.longitude, toilet.latitude, toilet.toiletName, toilet.tel, toilet.openTime, toilet.closeTime, toilet.mw, toilet.m1, toilet.m2, toilet.m3, toilet.m4, toilet.m5, toilet.m6, toilet.w1, toilet.w2, toilet.w3, statisticsDto.score_avg, null)
-    constructor(toiletInfoProjection: ToiletInfoProjection) : this(toiletInfoProjection.id, toiletInfoProjection.longitude, toiletInfoProjection.latitude, toiletInfoProjection.toiletName, toiletInfoProjection.tel, toiletInfoProjection.openTime, toiletInfoProjection.closeTime, toiletInfoProjection.mw, toiletInfoProjection.m1, toiletInfoProjection.m2, toiletInfoProjection.m3, toiletInfoProjection.m4, toiletInfoProjection.m5, toiletInfoProjection.m6, toiletInfoProjection.w1, toiletInfoProjection.w2, toiletInfoProjection.w3, toiletInfoProjection.score_avg, toiletInfoProjection.distance)
-    constructor(toilet : Toilet, statisticsDto: Statistics, distance: Double) : this(toilet.id, toilet.longitude, toilet.latitude, toilet.toiletName, toilet.tel, toilet.openTime, toilet.closeTime, toilet.mw, toilet.m1, toilet.m2, toilet.m3, toilet.m4, toilet.m5, toilet.m6, toilet.w1, toilet.w2, toilet.w3, statisticsDto.score_avg, distance)
+    constructor(toilet: Toilet) : this(toilet.id, toilet.longitude, toilet.latitude, toilet.toiletName, toilet.tel, toilet.openTime, toilet.mw, toilet.m1, toilet.m2, toilet.m3, toilet.m4, toilet.m5, toilet.m6, toilet.w1, toilet.w2, toilet.w3, null, null)
+    constructor(statisticsDto: Statistics, toilet: Toilet) : this(toilet.id, toilet.longitude, toilet.latitude, toilet.toiletName, toilet.tel, toilet.openTime, toilet.mw, toilet.m1, toilet.m2, toilet.m3, toilet.m4, toilet.m5, toilet.m6, toilet.w1, toilet.w2, toilet.w3, statisticsDto.score_avg, null)
+    constructor(toiletInfoProjection: ToiletInfoProjection) : this(toiletInfoProjection.id, toiletInfoProjection.longitude, toiletInfoProjection.latitude, toiletInfoProjection.toiletName, toiletInfoProjection.tel, toiletInfoProjection.openTime, toiletInfoProjection.mw, toiletInfoProjection.m1, toiletInfoProjection.m2, toiletInfoProjection.m3, toiletInfoProjection.m4, toiletInfoProjection.m5, toiletInfoProjection.m6, toiletInfoProjection.w1, toiletInfoProjection.w2, toiletInfoProjection.w3, toiletInfoProjection.score_avg, toiletInfoProjection.distance)
+    constructor(toilet : Toilet, statisticsDto: Statistics, distance: Double) : this(toilet.id, toilet.longitude, toilet.latitude, toilet.toiletName, toilet.tel, toilet.openTime, toilet.mw, toilet.m1, toilet.m2, toilet.m3, toilet.m4, toilet.m5, toilet.m6, toilet.w1, toilet.w2, toilet.w3, statisticsDto.score_avg, distance)
 
 }
 
@@ -45,8 +45,8 @@ interface ToiletInfoProjection {
     val latitude : Double
     val toiletName : String?
     val tel : String?
-    val openTime : LocalTime?
-    val closeTime : LocalTime?
+    val openTime : String?
+    //val closeTime : LocalTime?
     val mw : Boolean?
     val m1 : Int
     val m2 : Int

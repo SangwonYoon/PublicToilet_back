@@ -11,8 +11,8 @@ import java.util.*
 class ToiletUpdateDto (
         @ApiModelProperty(value = "화장실 이름", required = true) val toiletName : String,
         @ApiModelProperty(value = "화장실 전화번호") val tel : String? = null,
-        @ApiModelProperty(value = "개방 시작 시간") val openTime : String? = null,
-        @ApiModelProperty(value = "개방 마감 시간") val closeTime : String? = null,
+        @ApiModelProperty(value = "개방 시간") val openTime : String? = null,
+        //@ApiModelProperty(value = "개방 마감 시간") val closeTime : String? = null,
         @ApiModelProperty(value = "남녀 공용 화장실 여부") val mw : Boolean? = null,
         @ApiModelProperty(value = "남성용 대변기 수", required = true) val m1 : Int,
         @ApiModelProperty(value = "남성용 소변기 수", required = true) val m2 : Int,

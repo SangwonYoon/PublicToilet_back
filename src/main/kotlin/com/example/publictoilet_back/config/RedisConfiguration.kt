@@ -24,7 +24,7 @@ class RedisConfiguration : CachingConfigurerSupport(){
 
     override fun cacheManager(): CacheManager? {
         val builder = RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(redisConnectionFactory()!!)
-        val configuration = RedisCacheConfiguration.defaultCacheConfig().serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(GenericJackson2JsonRedisSerializer())).prefixKeysWith("prefix:").entryTtl(Duration.ofMinutes(60))
+        val configuration = RedisCacheConfiguration.defaultCacheConfig().serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(GenericJackson2JsonRedisSerializer())).prefixKeysWith("prefix:").entryTtl(Duration.ofMinutes(10))
         builder.cacheDefaults(configuration)
         return builder.build()
     }

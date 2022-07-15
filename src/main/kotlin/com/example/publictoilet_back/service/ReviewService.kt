@@ -7,6 +7,7 @@ import com.example.publictoilet_back.entity.Statistics
 import com.example.publictoilet_back.entity.Toilet
 import com.example.publictoilet_back.repository.StatisticsRepository
 import com.example.publictoilet_back.repository.ToiletRepository
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 

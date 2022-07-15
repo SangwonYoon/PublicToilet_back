@@ -17,8 +17,7 @@ class Toilet(
         val latitude : Double = 0.0,
         var toiletName : String? = null,
         var tel : String? = null,
-        var openTime : LocalTime? = null,
-        var closeTime : LocalTime? = null,
+        var openTime : String? = null, // 개방 시간
         var mw : Boolean? = null, // 남녀 공용 화장실 여부
         var m1 : Int = 0, // 남성용 대변기 수
         var m2 : Int = 0, // 남성용 소변기 수
@@ -37,8 +36,8 @@ class Toilet(
         fun update(toiletUpdateDto: ToiletUpdateDto){
                 this.toiletName = toiletUpdateDto.toiletName
                 this.tel = toiletUpdateDto.tel
-                this.openTime = LocalTime.parse(toiletUpdateDto.openTime, DateTimeFormatter.ofPattern("HH:mm:ss"))
-                this.closeTime = LocalTime.parse(toiletUpdateDto.closeTime, DateTimeFormatter.ofPattern("HH:mm:ss"))
+                this.openTime = toiletUpdateDto.openTime
+                //this.closeTime = LocalTime.parse(toiletUpdateDto.closeTime, DateTimeFormatter.ofPattern("HH:mm:ss"))
                 this.mw = toiletUpdateDto.mw
                 this.m1 = toiletUpdateDto.m1
                 this.m2 = toiletUpdateDto.m2

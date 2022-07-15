@@ -7,13 +7,30 @@ import com.example.publictoilet_back.entity.Statistics
 import com.example.publictoilet_back.entity.Toilet
 import com.example.publictoilet_back.repository.StatisticsRepository
 import com.example.publictoilet_back.repository.ToiletRepository
+import org.apache.tomcat.util.json.JSONParser
+import org.h2.util.json.JSONArray
+import org.h2.util.json.JSONObject
 import org.springframework.cache.annotation.Cacheable
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
+import java.time.LocalTime
 import javax.transaction.Transactional
 import kotlin.math.*
 
 @Service
 class ToiletService(val toiletRepository: ToiletRepository, val statisticsRepository: StatisticsRepository) {
+
+    /*
+    @Scheduled(cron = "5/10 * * * * *")
+    fun schedulerTest(){
+        println("What time is it now? : ${LocalTime.now()}")
+    }
+
+     */
 
     fun saveToilet(toiletSaveDto: ToiletSaveDto) : Long?{
         val savedToilet = toiletRepository.save(toiletSaveDto.toEntity())
@@ -29,7 +46,6 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         return ToiletInfoDto(entity)
     }
 
-    @Cacheable(value = ["toilet"], key = "#id", cacheManager = "cacheManager")
     fun findInfo(id: Long) : ToiletInfoDto {
         val entity = toiletRepository.findById(id).orElseThrow{
             IllegalArgumentException("해당 화장실은 존재하지 않습니다. id=$id")
@@ -60,6 +76,7 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         return id
     }
 
+    /*
     /**
      * 두 좌표의 거리를 계산한다.
      *
@@ -76,6 +93,7 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         val c = 2 * asin(sqrt(a))
         return (R * c).toInt()
     }
+     */
 
     fun findOrCreateStatistics(toilet : Toilet) : Statistics{
         val findStatistics = statisticsRepository.findByToiletId(toilet.id)

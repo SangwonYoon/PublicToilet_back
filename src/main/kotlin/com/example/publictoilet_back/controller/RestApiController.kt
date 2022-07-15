@@ -14,6 +14,11 @@ import springfox.documentation.annotations.ApiIgnore
 @RestController
 class RestApiController(val appService: AppService) {
 
+    @PostMapping("/toilets/create")
+    fun createToiletData() : Boolean{
+        return appService.createToiletData()
+    }
+
     @ApiOperation(value = "화장실 정보 저장", notes = "화장실 상세 정보를 저장한다.")
     @PostMapping("/toilets")
     fun saveToilet(@RequestBody toiletSaveDto: ToiletSaveDto) : Long?{

@@ -35,9 +35,9 @@ class AppService(val reviewService: ReviewService, val toiletService: ToiletServ
                 val jsonData = jsonWholeObject["Publtolt"] as JSONArray
 
                 val jsonHeader = jsonData[0] as JSONObject
-                val head = jsonHeader.get("head") as JSONArray
+                val head = jsonHeader["head"] as JSONArray
                 val result = head[1] as JSONObject
-                val resultCode = (result.get("RESULT") as JSONObject).get("CODE").toString()
+                val resultCode = (result["RESULT"] as JSONObject)["CODE"].toString()
                 if(resultCode != "INFO-000"){
                     continue
                 }
@@ -45,23 +45,23 @@ class AppService(val reviewService: ReviewService, val toiletService: ToiletServ
                 val jsonObject = jsonData[1] as JSONObject
                 val jsonArray = jsonObject.get("row") as JSONArray
 
-                for(i in 0..jsonArray.size-1){
+                for(i in 0 until jsonArray.size){
                     val obj = jsonArray[i] as JSONObject
-                    val latitude = obj.get("REFINE_WGS84_LAT")?.toString()?.toDouble()
-                    val longitude = obj.get("REFINE_WGS84_LOGT")?.toString()?.toDouble()
-                    val toiletName = obj.get("PBCTLT_PLC_NM").toString()
-                    val tel = obj.get("MANAGE_INST_TELNO")?.toString()
-                    val openTime = obj.get("OPEN_TM_INFO").toString()
-                    val mw = obj.get("MALE_FEMALE_TOILET_YN").toString().toBoolean()
-                    val m1 = obj.get("MALE_WTRCLS_CNT").toString().toInt()
-                    val m2 = obj.get("MALE_UIL_CNT").toString().toInt()
-                    val m3 = obj.get("MALE_DSPSN_WTRCLS_CNT").toString().toInt()
-                    val m4 = obj.get("MALE_DSPSN_UIL_CNT").toString().toInt()
-                    val m5 = obj.get("MALE_CHILDUSE_WTRCLS_CNT").toString().toInt()
-                    val m6 = obj.get("MALE_CHILDUSE_UIL_CNT").toString().toInt()
-                    val w1 = obj.get("FEMALE_WTRCLS_CNT").toString().toInt()
-                    val w2 = obj.get("FEMALE_DSPSN_WTRCLS_CNT").toString().toInt()
-                    val w3 = obj.get("FEMALE_CHILDUSE_WTRCLS_CNT").toString().toInt()
+                    val latitude = obj["REFINE_WGS84_LAT"]?.toString()?.toDouble()
+                    val longitude = obj["REFINE_WGS84_LOGT"]?.toString()?.toDouble()
+                    val toiletName = obj["PBCTLT_PLC_NM"].toString()
+                    val tel = obj["MANAGE_INST_TELNO"]?.toString()
+                    val openTime = obj["OPEN_TM_INFO"].toString()
+                    val mw = obj["MALE_FEMALE_TOILET_YN"].toString().toBoolean()
+                    val m1 = obj["MALE_WTRCLS_CNT"].toString().toInt()
+                    val m2 = obj["MALE_UIL_CNT"].toString().toInt()
+                    val m3 = obj["MALE_DSPSN_WTRCLS_CNT"].toString().toInt()
+                    val m4 = obj["MALE_DSPSN_UIL_CNT"].toString().toInt()
+                    val m5 = obj["MALE_CHILDUSE_WTRCLS_CNT"].toString().toInt()
+                    val m6 = obj["MALE_CHILDUSE_UIL_CNT"].toString().toInt()
+                    val w1 = obj["FEMALE_WTRCLS_CNT"].toString().toInt()
+                    val w2 = obj["FEMALE_DSPSN_WTRCLS_CNT"].toString().toInt()
+                    val w3 = obj["FEMALE_CHILDUSE_WTRCLS_CNT"].toString().toInt()
 
                     if(latitude == null || longitude == null){
                         continue

@@ -42,7 +42,7 @@ class RestApiControllerTest {
     @Autowired
     val statisticsRepository : StatisticsRepository? = null
 
-    private val tempToilet = Toilet(longitude = 10.34, latitude = 30.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = LocalTime.of(7, 30, 0), closeTime = LocalTime.of(22,40,0), mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9)
+    private val tempToilet = Toilet(longitude = 10.34, latitude = 30.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = "24시간", mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9)
 
     @After
     @Throws(Exception::class)
@@ -55,7 +55,7 @@ class RestApiControllerTest {
     @Test
     fun saveToiletTest(){
         //given
-        val request = ToiletSaveDto(longitude = 10.34, latitude = 40.54, toiletName = "정릉 화장실", tel = "02-547-2323", openTime = "05:30:00", closeTime = "23:00:00", mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9)
+        val request = ToiletSaveDto(longitude = 10.34, latitude = 40.54, toiletName = "정릉 화장실", tel = "02-547-2323", openTime = "24시간", mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9)
 
         val url = "http://localhost:$port/toilets"
 
@@ -69,7 +69,7 @@ class RestApiControllerTest {
         val savedToilet = toiletRepository!!.findById(responseEntity.body!!).get()
         assertThat(savedToilet.latitude).isEqualTo(40.54)
         assertThat(savedToilet.toiletName).isEqualTo("정릉 화장실")
-        assertThat(savedToilet.openTime).isEqualTo(LocalTime.of(5, 30, 0))
+        assertThat(savedToilet.openTime).isEqualTo("24시간")
 
         val statistics = statisticsRepository!!.findByToiletId(responseEntity.body!!).get()
         assertThat(statistics).isNotNull
@@ -105,11 +105,11 @@ class RestApiControllerTest {
     @Test
     fun findNearToiletTest(){
         //given
-        val toilet1 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 30.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, closeTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
-        val toilet4 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 75.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, closeTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
-        val toilet2 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 50.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, closeTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
-        val toilet3 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 70.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, closeTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
-        val toilet5 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 80.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, closeTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
+        val toilet1 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 30.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
+        val toilet4 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 75.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
+        val toilet2 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 50.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
+        val toilet3 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 70.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
+        val toilet5 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 80.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
 
         val userLatitude = "30.54"
         val userLongitude = "10.34"
@@ -191,7 +191,7 @@ class RestApiControllerTest {
     fun updateToiletInfoTest(){
         //given
         val savedToilet = toiletRepository!!.save(tempToilet)
-        val request = ToiletUpdateDto(toiletName = "길음 화장실", tel = "02-266-8323", openTime = "06:00:00", closeTime = "22:10:00", mw = true, m1 = 10, m2 = 9, m3 = 8, m4 = 7, m5 = 6, m6 = 5, w1 = 4, w2 = 3, w3 = 2)
+        val request = ToiletUpdateDto(toiletName = "길음 화장실", tel = "02-266-8323", openTime = "24시간", mw = true, m1 = 10, m2 = 9, m3 = 8, m4 = 7, m5 = 6, m6 = 5, w1 = 4, w2 = 3, w3 = 2)
 
         val url = "http://localhost:$port/toilets/${savedToilet.id}"
 
@@ -203,8 +203,8 @@ class RestApiControllerTest {
         val changedToilet = toiletRepository!!.findById(savedToilet.id).get()
         assertThat(changedToilet.toiletName).isEqualTo("길음 화장실")
         assertThat(changedToilet.tel).isEqualTo("02-266-8323")
-        assertThat(changedToilet.openTime).isEqualTo(LocalTime.of(6,0,0))
-        assertThat(changedToilet.closeTime).isEqualTo(LocalTime.of(22,10,0))
+        assertThat(changedToilet.openTime).isEqualTo("24시간")
+        //assertThat(changedToilet.closeTime).isEqualTo(LocalTime.of(22,10,0))
         assertThat(changedToilet.mw).isEqualTo(true)
         assertThat(changedToilet.m1).isEqualTo(10)
         assertThat(changedToilet.m2).isEqualTo(9)

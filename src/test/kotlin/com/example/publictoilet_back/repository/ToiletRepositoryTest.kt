@@ -42,7 +42,7 @@ class ToiletRepositoryTest {
         val w2 = 8
         val w3 = 9
 
-        toiletRepository?.save(Toilet(latitude = latitude, longitude = longitude, toiletName = toiletName, tel = tel, openTime = openTime, closeTime = closeTime, mw = mw, m1 = m1, m2 = m2, m3 = m3, m4 = m4, m5 = m5, m6 = m6, w1 = w1, w2 = w2, w3 = w3))
+        toiletRepository?.save(Toilet(latitude = latitude, longitude = longitude, toiletName = toiletName, tel = tel, openTime = openTime, mw = mw, m1 = m1, m2 = m2, m3 = m3, m4 = m4, m5 = m5, m6 = m6, w1 = w1, w2 = w2, w3 = w3))
 
         //when
         val toiletList = toiletRepository?.findAll()
@@ -54,7 +54,7 @@ class ToiletRepositoryTest {
         assertThat(toilet.toiletName).isEqualTo(toiletName)
         assertThat(toilet.tel).isEqualTo(tel)
         assertThat(toilet.openTime).isNull()
-        assertThat(toilet.closeTime).isNull()
+        //assertThat(toilet.closeTime).isNull()
         assertThat(toilet.mw).isEqualTo(mw)
         assertThat(toilet.m1).isEqualTo(m1)
         assertThat(toilet.m2).isEqualTo(m2)

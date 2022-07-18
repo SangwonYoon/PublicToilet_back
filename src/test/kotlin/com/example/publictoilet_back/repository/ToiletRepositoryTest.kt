@@ -22,6 +22,45 @@ class ToiletRepositoryTest {
         toiletRepository!!.deleteAll()
     }
 
+    private val tempToilet = Toilet(longitude = 10.34, latitude = 30.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = "24시간", mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9)
+
+    @Test
+    fun findFirst1ByLatitudeAndLongitudeTest(){
+        //given
+        toiletRepository!!.save(tempToilet)
+        toiletRepository!!.save(Toilet(id = 3, longitude = 10.34, latitude = 30.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = "24시간", mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
+
+        //when
+        val toilet = toiletRepository!!.findFirst1ByLatitudeAndLongitude(longitude = 10.34, latitude = 30.54).get()
+
+        //then
+        assertThat(toilet.toiletName).isEqualTo("솔샘 화장실")
+        assertThat(toilet.openTime).isEqualTo("24시간")
+        assertThat(toilet.tel).isEqualTo("02-547-2323")
+    }
+
+    @Test
+    fun beforeUpdateToiletDataTest(){
+        //given
+        val toilet1 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 30.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
+        val toilet4 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 75.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
+        val toilet2 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 50.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
+        val toilet3 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 70.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
+        val toilet5 = toiletRepository!!.save(Toilet(longitude = 10.34, latitude = 80.54, toiletName = "솔샘 화장실", tel = "02-547-2323", openTime = null, mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9))
+
+
+        //when
+        toiletRepository!!.beforeUpdateToiletData()
+
+        //then
+        val toilets = toiletRepository!!.findAll()
+        assertThat(toilets[0].validate).isEqualTo(false)
+        assertThat(toilets[1].validate).isEqualTo(false)
+        assertThat(toilets[2].validate).isEqualTo(false)
+        assertThat(toilets[3].validate).isEqualTo(false)
+        assertThat(toilets[4].validate).isEqualTo(false)
+    }
+
     @Test
     fun 화장실정보_저장_불러오기(){
         //given
@@ -30,7 +69,7 @@ class ToiletRepositoryTest {
         val toiletName = "솔샘 화장실"
         val tel = "02-547-2323"
         val openTime = null
-        val closeTime = null
+        //val closeTime = null
         val mw = false
         val m1 = 1
         val m2 = 2

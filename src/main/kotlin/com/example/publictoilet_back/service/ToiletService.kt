@@ -172,9 +172,13 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         return ToiletInfoDto(entity)
     }
 
-    fun findInfo(id: Long) : ToiletInfoDto {
+    fun findInfo(id: Long) : ToiletInfoDto? {
         val entity = toiletRepository.findById(id).orElseThrow{
             IllegalArgumentException("해당 화장실은 존재하지 않습니다. id=$id")
+        }
+
+        if(!entity.validate){
+            return null
         }
 
         val statistics = findOrCreateStatistics(entity)

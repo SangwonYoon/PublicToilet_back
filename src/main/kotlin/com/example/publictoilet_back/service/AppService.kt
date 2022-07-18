@@ -32,7 +32,7 @@ class AppService(val reviewService: ReviewService, val toiletService: ToiletServ
         return toiletService.findById(id)
     }
 
-    fun findToiletInfo(id : Long) : ToiletInfoDto {
+    fun findToiletInfo(id : Long) : ToiletInfoDto? {
         return toiletService.findInfo(id)
     }
 

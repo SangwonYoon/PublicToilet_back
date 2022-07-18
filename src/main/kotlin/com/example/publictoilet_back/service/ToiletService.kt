@@ -10,6 +10,7 @@ import com.example.publictoilet_back.repository.ToiletRepository
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import org.json.simple.parser.JSONParser
+import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
@@ -92,9 +93,10 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
     }
 
     @Transactional
+    @CacheEvict(value = ["toilet"], allEntries = true, cacheManager = "cacheManager") // 화장실 캐시 전부 삭제
     @Scheduled(cron = "* * * 15 * *") // 매달 15일에 동작
     fun updateToiletData(){
-        toiletRepository.beforeUpdateToiletData()
+        toiletRepository.beforeUpdateToiletData() // 모든 화장실 데이터의 validate 값을 false로 update
         for(idx in 1..11){
             try{
                 val url = URL("https://openapi.gg.go.kr/Publtolt?KEY=e097ad965a254d3ea7f47e9649f8a4c2&Type=json&psize=1000&pIndex=$idx")

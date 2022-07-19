@@ -14,6 +14,7 @@ import springfox.documentation.annotations.ApiIgnore
 @RestController
 class RestApiController(val appService: AppService) {
 
+    @ApiOperation(value = "화장실 데이터 생성", notes = "공공 API로부터 화장실 데이터를 받아와 데이터베이스에 저장한다.")
     @PostMapping("/toilets/create")
     fun createToiletData() : Boolean{
         return appService.createToiletData()
@@ -43,11 +44,11 @@ class RestApiController(val appService: AppService) {
         return appService.findNearToilet(latitude, longitude, range)
     }
 
-    @ApiOperation(value = "화장실 정보 조회", notes = "화장실 상세 정보를 조회한다.")
+    @ApiOperation(value = "화장실 정보 조회", notes = "화장실 상세 정보를 조회한다.\n validate = false인 화장실을 조회한 경우 null 반환")
     @ApiImplicitParam(name = "toilet_id", value = "화장실 id", required = true)
     @Cacheable(value = ["toilet"], key = "#toilet_id", cacheManager = "cacheManager")
     @GetMapping("/toilets/{toilet_id}/info")
-    fun findInfo(@PathVariable toilet_id : Long) : ToiletInfoDto {
+    fun findInfo(@PathVariable toilet_id : Long) : ToiletInfoDto? {
         return appService.findToiletInfo(toilet_id)
     }
 

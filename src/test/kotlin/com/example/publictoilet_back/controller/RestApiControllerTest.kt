@@ -53,6 +53,22 @@ class RestApiControllerTest {
     }
 
     @Test
+    fun createToiletDataTest(){
+        //given
+        val url = "http://localhost:$port/toilets/create"
+
+        //when
+        val responseEntity = restTemplate!!.postForEntity(url, null, Boolean::class.java)
+
+        //then
+        assertThat(responseEntity.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(responseEntity.body).isEqualTo(true)
+
+        val toilets = toiletRepository!!.findAll()
+        assertThat(toilets.size).isGreaterThan(0)
+    }
+
+    @Test
     fun saveToiletTest(){
         //given
         val request = ToiletSaveDto(longitude = 10.34, latitude = 40.54, toiletName = "정릉 화장실", tel = "02-547-2323", openTime = "24시간", mw = false, m1 = 1, m2 = 2, m3 = 3, m4 = 4, m5 = 5, m6 = 6, w1 = 7, w2 = 8, w3 = 9)

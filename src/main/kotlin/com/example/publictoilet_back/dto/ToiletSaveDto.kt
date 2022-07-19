@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-@ApiModel(value = "화장실 저장 정보", description = "화장실 정보를 저장할 때 사용하는 model")
+@ApiModel(value = "ToiletSaveDto (화장실 저장 정보)", description = "화장실 정보를 저장할 때 사용하는 model")
 class ToiletSaveDto(
         @ApiModelProperty(value = "화장실 위도", required = true) val longitude : Double,
         @ApiModelProperty(value = "화장실 경도", required = true) val latitude : Double,

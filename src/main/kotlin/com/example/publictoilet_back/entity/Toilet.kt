@@ -28,6 +28,7 @@ class Toilet(
         var w1 : Int = 0, // 여성용 대변기 수
         var w2 : Int = 0, // 여성용 장애인용 대변기 수
         var w3 : Int = 0, // 여성용 어린이용 대변기 수
+        var validate : Boolean = true,
         @OneToMany(mappedBy = "toilet")
         val reviewList : MutableList<Review> = mutableListOf(),
         @OneToOne(mappedBy = "toilet")
@@ -48,5 +49,6 @@ class Toilet(
                 this.w1 = toiletUpdateDto.w1
                 this.w2 = toiletUpdateDto.w2
                 this.w3 = toiletUpdateDto.w3
+                this.validate = true
         }
 }

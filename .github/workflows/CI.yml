@@ -22,7 +22,7 @@ jobs:
           MYSQL_USER: test
           MYSQL_PASSWORD: test
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: TOILET
+          MYSQL_DATABASE: public_toilet
         ports: # 열어줄 포트, 8080:3306 형태로도 가능
           - 3306
         options: >-  # 서비스에 걸어줄 옵션
@@ -37,7 +37,7 @@ jobs:
           mysql --version
           sudo apt-get install -y mysql-client
           sudo service mysql start
-          mysql -uroot -proot -e "CREATE DATABASE TOILET"
+          mysql -uroot -proot -e "CREATE DATABASE public_toilet"
           mysql -uroot -proot -e "SHOW DATABASES"
 
       - name: checkout source code

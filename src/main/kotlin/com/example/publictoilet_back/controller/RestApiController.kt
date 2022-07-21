@@ -26,13 +26,6 @@ class RestApiController(val appService: AppService) {
         return appService.saveToilet(toiletSaveDto)
     }
 
-//    @ApiIgnore
-//    @Cacheable(value = ["toilet"], key = "#id", cacheManager = "cacheManager")
-//    @GetMapping("/toilets/{id}")
-//    fun findById(@PathVariable id : Long) : ToiletInfoDto {
-//        return appService.findToiletById(id)
-//    }
-
     @ApiOperation(value = "사용자 주변 화장실 조회", notes = "사용자가 지정한 범위 내의 화장실 목록을 조회한다.")
     @ApiImplicitParams(
         ApiImplicitParam(name = "latitude", value = "사용자 위치의 위도", required = true),
@@ -75,4 +68,10 @@ class RestApiController(val appService: AppService) {
         return appService.updateToiletInfo(toilet_id, toiletUpdateDto)
     }
 
+//    @ApiIgnore
+//    @Cacheable(value = ["toilet"], key = "#id", cacheManager = "cacheManager")
+//    @GetMapping("/toilets/{id}")
+//    fun findById(@PathVariable id : Long) : ToiletInfoDto {
+//        return appService.findToiletById(id)
+//    }
 }

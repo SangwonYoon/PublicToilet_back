@@ -237,7 +237,9 @@ class ToiletService(val toiletRepository: ToiletRepository, val statisticsReposi
         }
     }
 
+    /*
     companion object{
         const val R =  6372.8 * 1000
     }
+     */
 }

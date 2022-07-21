@@ -1,0 +1,2 @@
+1658216103458|7|rollback|connection 46|url jdbc:mysql://localhost:3306/public_toilet?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true||
+1658216354505|17|rollback|connection 48|url jdbc:mysql://localhost:3306/public_toilet?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true||

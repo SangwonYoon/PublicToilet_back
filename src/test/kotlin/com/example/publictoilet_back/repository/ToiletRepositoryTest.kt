@@ -68,7 +68,7 @@ class ToiletRepositoryTest {
         val longitude = 30.5
         val toiletName = "솔샘 화장실"
         val tel = "02-547-2323"
-        val openTime = null
+        val openTime = "24시간"
         //val closeTime = null
         val mw = false
         val m1 = 1
@@ -92,7 +92,7 @@ class ToiletRepositoryTest {
         assertThat(toilet.longitude).isEqualTo(longitude)
         assertThat(toilet.toiletName).isEqualTo(toiletName)
         assertThat(toilet.tel).isEqualTo(tel)
-        assertThat(toilet.openTime).isNull()
+        assertThat(toilet.openTime).isEqualTo(openTime)
         //assertThat(toilet.closeTime).isNull()
         assertThat(toilet.mw).isEqualTo(mw)
         assertThat(toilet.m1).isEqualTo(m1)

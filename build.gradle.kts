@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+	implementation(group= "com.fasterxml.jackson.core", name= "jackson-databind", version= "2.11.2")
 	implementation(group= "com.googlecode.json-simple", name= "json-simple", version= "1.1.1")
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 	implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7")

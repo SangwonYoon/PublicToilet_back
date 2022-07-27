@@ -2,9 +2,10 @@
 
 ![급할땐 로고](https://user-images.githubusercontent.com/38793142/181200984-76563e06-d22c-48ac-b7a5-06fa13c934cf.png)
 
-### 공공 데이터를 활용한 경기도 공중 화장실 위치 정보 제공 서비스
-
+### Client Code
 [급할땐 Client 코드](https://github.com/SangwonYoon/PublicToilet_front)
+<br/>
+<br/>
 
 ### Tech Stack
 
@@ -24,15 +25,19 @@
 <img src="https://img.shields.io/badge/S3-569A31?style=flat&logo=Amazon S3&logoColor=white"/>
 <img src="https://img.shields.io/badge/CodeDeploy-527FFF?style=flat&logo=Amazon AWS&logoColor=white"/>
 </p>
+<br/>
+<br/>
 
 ### API Docs
 [API 명세서](http://15.165.203.167:8080/swagger-ui.html)
+<br/>
+<br/>
 
 ### Server Architecture
 ![서버 아키텍쳐](https://github.com/SangwonYoon/PublicToilet_back/blob/master/%E1%84%89%E1%85%A5%E1%84%87%E1%85%A5%20%E1%84%8B%E1%85%A1%E1%84%8F%E1%85%B5%E1%84%90%E1%85%A6%E1%86%A8%E1%84%8E%E1%85%A7.png)
 
 ### DataBase ERD
-![데이터베이스 ERD](https://github.com/SangwonYoon/PublicToilet_back/blob/master/ERD.png)
+<p align="center"><img src="https://github.com/SangwonYoon/PublicToilet_back/blob/master/ERD.png"></p>
 
 ---
 

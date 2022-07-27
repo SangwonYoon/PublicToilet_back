@@ -2,6 +2,7 @@
 
 #### Tech Stack
 
+<p>
 <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=Spring Boot&logoColor=white"/>
 <img src="https://img.shields.io/badge/Kotlin-7F52FF?style=flat&logo=Kotlin&logoColor=white"/>
 <img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=Swagger&logoColor=white"/>
@@ -15,6 +16,7 @@
 <img src="https://img.shields.io/badge/EC2-FF9900?style=flat&logo=Amazon EC2&logoColor=white"/>
 <img src="https://img.shields.io/badge/S3-569A31?style=flat&logo=Amazon S3&logoColor=white"/>
 <img src="https://img.shields.io/badge/CodeDeploy-527FFF?style=flat&logo=Amazon AWS&logoColor=white"/>
+</p>
 
 #### API Docs
 [API 명세서](http://15.165.203.167:8080/swagger-ui.html)
@@ -28,4 +30,5 @@
 ---
 
 개발 : [윤상원](https://github.com/SangwonYoon)
+
 프로젝트 기간 : 22.06.23 ~ 22.07.27
